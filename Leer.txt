@@ -1,0 +1,5 @@
+Ventanas a realizar:
+-Ventana de login .Nombre del form: frmLogin
+-Ventana principal donde se muestren las distintas salas con su información (Jugadores dentro, ronda en la que se encuentra la sala, privada-publica).Nombre del form: frmPpl
+-Ventana de juego debe tener un control para ingresar las palabras, un panel para dibujar, una lista de las palabras ingresadas.Nombre del form: frmJuego
+
