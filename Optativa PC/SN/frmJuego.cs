@@ -14,14 +14,18 @@ namespace SN
     public partial class frmJuego : Form
     {
         private bool btnDown;
+        private bool escribir;
+        private bool borrar;
         private int offsetX;
         private int offsetY;
         Pen lapiz;
+        Pen goma;
         Graphics grafico;
         public frmJuego()
         {
             InitializeComponent();
-            lapiz = new Pen(Color.Black);
+            lapiz = new Pen(Color.Black, 6);
+            goma = new Pen(Color.White, 6);
             grafico = pnlDibujo.CreateGraphics();
 
         }
@@ -50,12 +54,29 @@ namespace SN
 
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
-            if (btnDown)
+            if ((escribir) && (btnDown))
             {
                 // mover el pictureBox con el raton               
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X - 1, e.Y - 1);
             }
+            else if ((borrar) && (btnDown))
+            {
+                grafico.DrawLine(goma, e.X, e.Y, e.X + 1, e.Y + 1);
+                grafico.DrawLine(goma, e.X, e.Y, e.X - 1, e.Y - 1);
+            }
+        }
+
+        private void btnEscribir_Click(object sender, EventArgs e)
+        {
+            escribir = true;
+            borrar = false;
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            escribir = false;
+            borrar = true;
         }
     }
 }

@@ -9,3 +9,14 @@ c:\users\usuario\documents\visual studio 2015\Projects\Optativa PC\SN\obj\Debug\
 c:\users\usuario\documents\visual studio 2015\Projects\Optativa PC\SN\obj\Debug\SN.frmLogin.resources
 C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Optativa PC\SN\obj\Debug\SN.frmJuego.resources
 C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Optativa PC\SN\obj\Debug\SN.frmSalas.resources
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe.config
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.exe
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.pdb
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.pdb
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csprojResolveAssemblyReference.cache
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmJuego.resources
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmLogin.resources
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmSalas.resources
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.Properties.Resources.resources
+C:\Users\José\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csproj.GenerateResource.Cache
