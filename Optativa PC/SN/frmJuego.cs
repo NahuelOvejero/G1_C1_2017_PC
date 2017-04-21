@@ -14,25 +14,21 @@ namespace SN
     public partial class frmJuego : Form
     {
         private bool btnDown;
-        private bool escribir;
-        private bool borrar;
-        private int offsetX;
-        private int offsetY;
         Pen lapiz;
-        Pen goma;
+        Icon cur;
         Graphics grafico;
         public frmJuego()
         {
             InitializeComponent();
             lapiz = new Pen(Color.Black, 6);
-            goma = new Pen(Color.White, 6);
+
             grafico = pnlDibujo.CreateGraphics();
 
         }
 
         private void frmJuego_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
@@ -54,29 +50,29 @@ namespace SN
 
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
-            if ((escribir) && (btnDown))
+            if (btnDown)
             {
                 // mover el pictureBox con el raton               
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X - 1, e.Y - 1);
             }
-            else if ((borrar) && (btnDown))
+        }
+
+       
+
+        private void tbResp_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter && tbResp.Text.Length !=0)
             {
-                grafico.DrawLine(goma, e.X, e.Y, e.X + 1, e.Y + 1);
-                grafico.DrawLine(goma, e.X, e.Y, e.X - 1, e.Y - 1);
+                
             }
         }
 
-        private void btnEscribir_Click(object sender, EventArgs e)
+        private void pnlNegro_Click(object sender, EventArgs e)
         {
-            escribir = true;
-            borrar = false;
+            Panel color = (Panel)sender;
+            lapiz.Color = color.BackColor;
         }
 
-        private void btnBorrar_Click(object sender, EventArgs e)
-        {
-            escribir = false;
-            borrar = true;
-        }
     }
 }
