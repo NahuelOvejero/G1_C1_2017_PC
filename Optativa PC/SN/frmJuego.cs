@@ -15,13 +15,11 @@ namespace SN
     {
         private bool btnDown;
         Pen lapiz;
-        Icon cur;
         Graphics grafico;
         public frmJuego()
         {
             InitializeComponent();
             lapiz = new Pen(Color.Black, 6);
-
             grafico = pnlDibujo.CreateGraphics();
 
         }
@@ -58,13 +56,23 @@ namespace SN
             }
         }
 
-       
 
+        bool har = false;
         private void tbResp_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
             if (e.KeyChar == (char)Keys.Enter && tbResp.Text.Length !=0)
             {
-                
+                //Compara la palabra que se ha dado con la que ingresó
+                if (har)
+                {
+                    //se le informa que ganó
+                }
+                else
+                {
+                    lbPalabrasIncorrectas.Items.Add(tbResp.Text);
+                    tbResp.Clear();
+                }   
             }
         }
 

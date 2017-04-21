@@ -44,12 +44,15 @@
             // 
             // pnlDibujo
             // 
+            this.pnlDibujo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlDibujo.BackColor = System.Drawing.Color.White;
             this.pnlDibujo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlDibujo.Location = new System.Drawing.Point(27, 131);
             this.pnlDibujo.Name = "pnlDibujo";
-            this.pnlDibujo.Size = new System.Drawing.Size(335, 242);
+            this.pnlDibujo.Size = new System.Drawing.Size(367, 329);
             this.pnlDibujo.TabIndex = 0;
             this.pnlDibujo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseDown);
             this.pnlDibujo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseMove);
@@ -83,7 +86,6 @@
             this.pnlNegro.Size = new System.Drawing.Size(21, 18);
             this.pnlNegro.TabIndex = 6;
             this.pnlNegro.Click += new System.EventHandler(this.pnlNegro_Click);
-       
             // 
             // pnlBlanco
             // 
@@ -153,6 +155,8 @@
             // 
             // lbPalabrasIncorrectas
             // 
+            this.lbPalabrasIncorrectas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPalabrasIncorrectas.FormattingEnabled = true;
             this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(458, 131);
             this.lbPalabrasIncorrectas.Name = "lbPalabrasIncorrectas";

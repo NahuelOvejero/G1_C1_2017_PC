@@ -102,13 +102,7 @@
     <None Include="fondo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\goma.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cursor.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Circulo.cur" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
