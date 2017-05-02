@@ -31,7 +31,7 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.tbUsuario = new System.Windows.Forms.TextBox();
             this.mtbPass = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.NICK = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -64,16 +64,17 @@
             this.mtbPass.PasswordChar = '*';
             this.mtbPass.Size = new System.Drawing.Size(135, 20);
             this.mtbPass.TabIndex = 3;
+            this.mtbPass.Visible = false;
             // 
-            // label1
+            // NICK
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(328, 280);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Usuario";
+            this.NICK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.NICK.AutoSize = true;
+            this.NICK.Location = new System.Drawing.Point(328, 280);
+            this.NICK.Name = "NICK";
+            this.NICK.Size = new System.Drawing.Size(43, 13);
+            this.NICK.TabIndex = 4;
+            this.NICK.Text = "Usuario";
             // 
             // label2
             // 
@@ -84,6 +85,7 @@
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Contraseña";
+            this.label2.Visible = false;
             // 
             // frmLogin
             // 
@@ -92,7 +94,7 @@
             this.BackgroundImage = global::SN.Properties.Resources.fondo;
             this.ClientSize = new System.Drawing.Size(702, 470);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.NICK);
             this.Controls.Add(this.mtbPass);
             this.Controls.Add(this.tbUsuario);
             this.Controls.Add(this.btnLogin);
@@ -111,7 +113,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox tbUsuario;
         private System.Windows.Forms.MaskedTextBox mtbPass;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label NICK;
         private System.Windows.Forms.Label label2;
     }
 }

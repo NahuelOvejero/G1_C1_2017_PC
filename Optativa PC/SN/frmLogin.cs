@@ -13,6 +13,8 @@ namespace SN
     public partial class frmLogin : Form
     {
         frmSalas salas;
+        clsUsuario usuario = new clsUsuario();
+
         public frmLogin()
         {
             InitializeComponent();
@@ -26,24 +28,23 @@ namespace SN
         {
 
         }
-        string simulaUs = "Usuario", simulaPass = "Contraseña";
+        
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbUsuario.Text == simulaUs && mtbPass.Text == simulaPass)
+            if (tbUsuario.Text == "Usuario")
             {
+                usuario.User = tbUsuario.Text;
+                usuario.Puntos = 0;
                 //Abre el otro formulario
                 MessageBox.Show("Logeado", "logeado");
-                salas = new frmSalas();
+                salas = new frmSalas(usuario);
                 salas.Show();
             }
             else if (tbUsuario.Text.Length == 0 || mtbPass.Text.Length == 0)
             {
                 MessageBox.Show("No deje campos vacío para el ingreso", "Error");
             }
-            else if (tbUsuario.Text != simulaUs || mtbPass.Text != simulaPass)
-            {
-                MessageBox.Show("Combinación de usuario y contraseña incorrectos", "Error");
-            }
+           
          }
     }
 }
