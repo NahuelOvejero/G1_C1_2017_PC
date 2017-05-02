@@ -39,6 +39,7 @@ namespace SN
                 MessageBox.Show("Logeado", "logeado");
                 salas = new frmSalas(usuario);
                 salas.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
             else if (tbUsuario.Text.Length == 0 || mtbPass.Text.Length == 0)
             {
