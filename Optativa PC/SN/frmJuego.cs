@@ -73,23 +73,7 @@ namespace SN
 
 
         bool har = false;
-        private void tbResp_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-            if (e.KeyChar == (char)Keys.Enter && tbResp.Text.Length !=0)
-            {
-                //Compara la palabra que se ha dado con la que ingresó
-                if (har)
-                {
-                    //se le informa que ganó
-                }
-                else
-                {
-                    lbPalabrasIncorrectas.Items.Add(tbResp.Text);
-                    tbResp.Clear();
-                }   
-            }
-        }
+       
 
         private void pnlNegro_Click(object sender, EventArgs e)
         {
