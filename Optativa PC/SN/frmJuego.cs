@@ -72,7 +72,7 @@ namespace SN
         }
 
 
-        bool har = false;
+      
        
 
         private void pnlNegro_Click(object sender, EventArgs e)
