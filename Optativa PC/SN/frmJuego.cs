@@ -16,17 +16,30 @@ namespace SN
         private bool btnDown;
         Pen lapiz;
         Graphics grafico;
-        public frmJuego()
+        clsUsuario usuario;
+        frmPrueba prueba;
+        clsComunicacion comunicacion;
+        
+
+        public frmJuego(clsUsuario us,clsComunicacion c)
         {
             InitializeComponent();
+            usuario = us;
+           
+           
+            comunicacion = c;
+
             lapiz = new Pen(Color.Black, 6);
             grafico = pnlDibujo.CreateGraphics();
+            lblNick.Text = usuario.User;
+            lblPuntos.Text =Convert.ToString(usuario.Puntos);
 
         }
 
         private void frmJuego_Load(object sender, EventArgs e)
         {
-           
+            prueba = new frmPrueba(comunicacion,this);
+            prueba.Show();
         }
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
@@ -53,6 +66,8 @@ namespace SN
                 // mover el pictureBox con el raton               
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X - 1, e.Y - 1);
+                comunicacion.enviaEjes(e.X, e.Y,prueba);
+                
             }
         }
 
@@ -82,5 +97,10 @@ namespace SN
             lapiz.Color = color.BackColor;
         }
 
+        public void rtasIncorrectas(string rta)
+        {
+            lbPalabrasIncorrectas.Items.Add(rta);
+
+        }
     }
 }

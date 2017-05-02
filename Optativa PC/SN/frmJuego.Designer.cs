@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pnlDibujo = new System.Windows.Forms.Panel();
-            this.tbResp = new System.Windows.Forms.TextBox();
             this.pnlRojo = new System.Windows.Forms.Panel();
             this.pnlNegro = new System.Windows.Forms.Panel();
             this.pnlBlanco = new System.Windows.Forms.Panel();
@@ -39,6 +38,10 @@
             this.pnlAmarillo = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbPalabrasIncorrectas = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblNick = new System.Windows.Forms.Label();
+            this.lblPuntos = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,20 +55,11 @@
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlDibujo.Location = new System.Drawing.Point(27, 131);
             this.pnlDibujo.Name = "pnlDibujo";
-            this.pnlDibujo.Size = new System.Drawing.Size(367, 329);
+            this.pnlDibujo.Size = new System.Drawing.Size(274, 340);
             this.pnlDibujo.TabIndex = 0;
             this.pnlDibujo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseDown);
             this.pnlDibujo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseMove);
             this.pnlDibujo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseUp);
-            // 
-            // tbResp
-            // 
-            this.tbResp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbResp.Location = new System.Drawing.Point(408, 464);
-            this.tbResp.Name = "tbResp";
-            this.tbResp.Size = new System.Drawing.Size(376, 20);
-            this.tbResp.TabIndex = 3;
-            this.tbResp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbResp_KeyPress);
             // 
             // pnlRojo
             // 
@@ -158,24 +152,63 @@
             this.lbPalabrasIncorrectas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPalabrasIncorrectas.FormattingEnabled = true;
-            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(458, 131);
+            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(349, 131);
             this.lbPalabrasIncorrectas.Name = "lbPalabrasIncorrectas";
-            this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(272, 329);
+            this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(142, 329);
             this.lbPalabrasIncorrectas.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(346, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "M Nick";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(346, 71);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Ms Puntos";
+            // 
+            // lblNick
+            // 
+            this.lblNick.AutoSize = true;
+            this.lblNick.Location = new System.Drawing.Point(416, 31);
+            this.lblNick.Name = "lblNick";
+            this.lblNick.Size = new System.Drawing.Size(41, 13);
+            this.lblNick.TabIndex = 16;
+            this.lblNick.Text = "M Nick";
+            // 
+            // lblPuntos
+            // 
+            this.lblPuntos.AutoSize = true;
+            this.lblPuntos.Location = new System.Drawing.Point(416, 71);
+            this.lblPuntos.Name = "lblPuntos";
+            this.lblPuntos.Size = new System.Drawing.Size(39, 13);
+            this.lblPuntos.TabIndex = 17;
+            this.lblPuntos.Text = "puntos";
+            this.lblPuntos.UseWaitCursor = true;
             // 
             // frmJuego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(796, 496);
+            this.ClientSize = new System.Drawing.Size(557, 507);
+            this.Controls.Add(this.lblPuntos);
+            this.Controls.Add(this.lblNick);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lbPalabrasIncorrectas);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tbResp);
             this.Controls.Add(this.pnlDibujo);
             this.Name = "frmJuego";
             this.Text = "frmJuego";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmJuego_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -186,7 +219,6 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlDibujo;
-        private System.Windows.Forms.TextBox tbResp;
         private System.Windows.Forms.Panel pnlRojo;
         private System.Windows.Forms.Panel pnlNegro;
         private System.Windows.Forms.Panel pnlBlanco;
@@ -196,5 +228,9 @@
         private System.Windows.Forms.Panel pnlAmarillo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbPalabrasIncorrectas;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNick;
+        private System.Windows.Forms.Label lblPuntos;
     }
 }
