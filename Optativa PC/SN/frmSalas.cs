@@ -13,9 +13,12 @@ namespace SN
     public partial class frmSalas : Form
     {
         frmJuego juego;
-        public frmSalas()
+        clsUsuario usuario;
+        public frmSalas(clsUsuario us)
         {
             InitializeComponent();
+            usuario = us;
+            label3.Text = usuario.User;
         }
 
         private void button1_Click(object sender, EventArgs e)
