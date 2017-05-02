@@ -13,7 +13,10 @@ namespace SN
     public partial class frmSalas : Form
     {
         frmJuego juego;
+        
         clsUsuario usuario;
+        clsComunicacion comunicacion = new clsComunicacion();
+
         public frmSalas(clsUsuario us)
         {
             InitializeComponent();
@@ -23,8 +26,11 @@ namespace SN
 
         private void button1_Click(object sender, EventArgs e)
         {
-            juego = new frmJuego();
+            juego = new frmJuego(usuario,comunicacion);
             juego.Show();
+           
+            this.WindowState = FormWindowState.Minimized;
+
         }
     }
 }
