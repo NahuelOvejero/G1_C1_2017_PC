@@ -31,3 +31,27 @@ C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Git Optativa\Optativa PC\
 C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Git Optativa\Optativa PC\SN\obj\Debug\SN.frmSalas.resources
 C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Git Optativa\Optativa PC\SN\obj\Debug\SN.Properties.Resources.resources
 C:\Users\Usuario\Documents\Visual Studio 2015\Projects\Git Optativa\Optativa PC\SN\obj\Debug\SN.csproj.GenerateResource.Cache
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe.config
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.exe
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.pdb
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csprojResolveAssemblyReference.cache
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmJuego.resources
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmLogin.resources
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmSalas.resources
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.Properties.Resources.resources
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csproj.GenerateResource.Cache
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.pdb
+D:\Repo\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmPrueba.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmJuego.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmLogin.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmPrueba.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.frmSalas.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.csproj.GenerateResource.Cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\bin\Debug\SN.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\G1_C1_2017_PC\Optativa PC\SN\obj\Debug\SN.pdb

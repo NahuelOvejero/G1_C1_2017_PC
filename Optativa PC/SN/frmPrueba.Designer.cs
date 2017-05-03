@@ -85,6 +85,7 @@
             this.Name = "frmPrueba";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "frmPrueba";
+            this.Load += new System.EventHandler(this.frmPrueba_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

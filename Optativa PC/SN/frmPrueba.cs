@@ -13,8 +13,7 @@ namespace SN
 {
     public partial class frmPrueba : Form
     {
-       
-        Pen lapiz;
+    
         Graphics grafico;
         //clsUsuario usuario;
         clsComunicacion comunicacion;
@@ -24,22 +23,27 @@ namespace SN
         public frmPrueba(clsComunicacion c,frmJuego j)
         {
             InitializeComponent();
-            lapiz = new Pen(Color.Black, 6);
+           
             grafico = pnlDibujo.CreateGraphics();
             comunicacion = c;
             juegoform = j;
 
         }
-        public void dibujar(int X,int Y1)
+        public void dibujar(Pen lapiz,int X,int Y1)
         {
             grafico.DrawLine(lapiz, X, Y1, X + 1, Y1 + 1);
             grafico.DrawLine(lapiz, X, Y1, X - 1, Y1 - 1);
-
         }
 
         private void btIngresa_Click(object sender, EventArgs e)
         {
-            comunicacion.enviaRta(tbPalabra.Text,juegoform);
+            if (comunicacion.enviaRta(tbPalabra.Text, juegoform))
+                MessageBox.Show("La palabra es correcta");
+        }
+
+        private void frmPrueba_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

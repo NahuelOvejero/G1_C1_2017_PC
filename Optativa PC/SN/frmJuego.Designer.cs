@@ -42,7 +42,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblNick = new System.Windows.Forms.Label();
             this.lblPuntos = new System.Windows.Forms.Label();
+            this.lblPalabra = new System.Windows.Forms.Label();
+            this.nudWidth = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblCont = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDibujo
@@ -55,7 +60,7 @@
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlDibujo.Location = new System.Drawing.Point(27, 131);
             this.pnlDibujo.Name = "pnlDibujo";
-            this.pnlDibujo.Size = new System.Drawing.Size(274, 340);
+            this.pnlDibujo.Size = new System.Drawing.Size(313, 340);
             this.pnlDibujo.TabIndex = 0;
             this.pnlDibujo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseDown);
             this.pnlDibujo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseMove);
@@ -152,7 +157,7 @@
             this.lbPalabrasIncorrectas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPalabrasIncorrectas.FormattingEnabled = true;
-            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(349, 131);
+            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(388, 131);
             this.lbPalabrasIncorrectas.Name = "lbPalabrasIncorrectas";
             this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(142, 329);
             this.lbPalabrasIncorrectas.TabIndex = 13;
@@ -194,12 +199,65 @@
             this.lblPuntos.Text = "puntos";
             this.lblPuntos.UseWaitCursor = true;
             // 
+            // lblPalabra
+            // 
+            this.lblPalabra.Location = new System.Drawing.Point(155, 13);
+            this.lblPalabra.Name = "lblPalabra";
+            this.lblPalabra.Size = new System.Drawing.Size(100, 23);
+            this.lblPalabra.TabIndex = 18;
+            this.lblPalabra.Text = "label3";
+            // 
+            // nudWidth
+            // 
+            this.nudWidth.Location = new System.Drawing.Point(74, 104);
+            this.nudWidth.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.nudWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudWidth.Name = "nudWidth";
+            this.nudWidth.Size = new System.Drawing.Size(36, 20);
+            this.nudWidth.TabIndex = 19;
+            this.nudWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudWidth.ValueChanged += new System.EventHandler(this.nudWidth_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(33, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Ancho:";
+            // 
+            // lblCont
+            // 
+            this.lblCont.Location = new System.Drawing.Point(272, 49);
+            this.lblCont.Name = "lblCont";
+            this.lblCont.Size = new System.Drawing.Size(52, 23);
+            this.lblCont.TabIndex = 21;
+            this.lblCont.Text = "60";
+            // 
             // frmJuego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(557, 507);
+            this.ClientSize = new System.Drawing.Size(596, 507);
+            this.Controls.Add(this.lblCont);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.nudWidth);
+            this.Controls.Add(this.lblPalabra);
             this.Controls.Add(this.lblPuntos);
             this.Controls.Add(this.lblNick);
             this.Controls.Add(this.label2);
@@ -211,6 +269,7 @@
             this.Text = "frmJuego";
             this.Load += new System.EventHandler(this.frmJuego_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,5 +291,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNick;
         private System.Windows.Forms.Label lblPuntos;
+        private System.Windows.Forms.Label lblPalabra;
+        private System.Windows.Forms.NumericUpDown nudWidth;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCont;
     }
 }
