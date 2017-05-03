@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 namespace SN
 {
-    delegate bool EnviarMensaje(string c);
-    
+   
     public partial class frmJuego : Form
     {
         private bool btnDown;
