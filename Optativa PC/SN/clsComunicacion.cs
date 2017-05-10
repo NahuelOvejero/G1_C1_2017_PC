@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SN
 {
-    public class clsComunicacion
+    public class clsComunicacion:ICom
     {
         int segundos=60;
         
-
-        public void enviaEjes(Pen lapiz, int x1, int y1,frmPrueba formu)
+        
+        public  void enviaEjes(Pen lapiz, int x1, int y1,frmPrueba formu)
         {
             formu.dibujar(lapiz,x1, y1);
 
@@ -25,26 +25,33 @@ namespace SN
         {
             get { return segundos; }
         }
-       public bool enviaRta(string rta,frmJuego formu)
+
+        public  bool enviaRta(string rta,frmJuego formu)
         {
             return formu.rtas(rta);
         }
+
         string palabraDesignada;
+
         public string PalabraDesignada
         {
             get { return palabraDesignada; }
         }
+
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
+
         public clsComunicacion()
         {
             Random r = new Random();
             int i = r.Next(0, palabras.Count());
             palabraDesignada = palabras[i];
         }
+
         public void enviarDibujado(Pen lapiz, Point p1, Point p2)
         {
 
         }
+
         public bool corroborar(string palabraEnviada)
         {
             if (palabraDesignada == palabraEnviada)
@@ -52,5 +59,9 @@ namespace SN
             else
                 return false;
         }
+
+        
+
+        
     }
 }
