@@ -16,11 +16,11 @@ namespace SN
     
         Graphics grafico;
         //clsUsuario usuario;
-        clsComunicacion comunicacion;
+        ICom comunicacion;
         frmJuego juegoform;
        
 
-        public frmPrueba(clsComunicacion c,frmJuego j)
+        public frmPrueba(ICom c,frmJuego j)
         {
             InitializeComponent();
            
