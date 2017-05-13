@@ -10,6 +10,23 @@ namespace misClases
     {
         string user;
         int puntos;
+        //los reportes se acumulan por partida 
+        int reportes = 0 ;
+
+
+        public void reiniciarReportes()
+        {
+            this.reportes = 0;
+        }
+
+        public void sumarReporte() {
+            reportes++;
+        }
+        public int getReportes() {
+            return this.reportes;
+        }
+        
+
 
         public string User
         {

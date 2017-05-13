@@ -10,6 +10,20 @@ namespace SN
     {
         string user;
         int puntos;
+        //los reportes se acumulan por partida 
+        int reportes = 0 ;
+
+
+        public void reiniciarReportes()
+        {
+            this.reportes = 0;
+        }
+
+        public void sumarReporte() {
+            reportes++;
+        }
+        
+
 
         public string User
         {
