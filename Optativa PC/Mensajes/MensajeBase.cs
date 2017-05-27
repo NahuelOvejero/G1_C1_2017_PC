@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mensajes
 {
-    class MensajeBase
+    public class MensajeBase
     {
 
 
@@ -14,16 +14,31 @@ namespace Mensajes
         string idReceptor;
         int nroSala;
         DateTime fecha;
-        string JSONmensaje; //datos
+        
 
-        public MensajeBase(string emisor, string receptor, int sala, string J) {
+        public MensajeBase(string emisor, string receptor, int sala) {
 
             this.idEmisor = emisor;
             this.idReceptor = receptor;
             this.nroSala = sala;
             this.fecha = new DateTime();
-            this.JSONmensaje = J;
-
+           
+        }
+        public string IdEmisor {
+            get { return idEmisor; }
+            set { idEmisor = value; }
+        }
+        public string IdReceptor {
+            get { return idReceptor; }
+            set { idReceptor = value; }
+        }
+        public int NroSala {
+            get { return nroSala; }
+            set { nroSala = value; }
+        }
+        public DateTime Fecha {
+            get { return fecha; }
+            set { fecha = value; }
         }
     }
 }

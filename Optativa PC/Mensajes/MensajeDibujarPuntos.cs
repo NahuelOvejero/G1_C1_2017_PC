@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mensajes
 {
-    class IntentarLogin:MensajeBase
+   public class MensajeDibujarPuntos : MensajeBase
     {
-        public IntentarLogin(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala, J)
+        public MensajeDibujarPuntos(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
         {
 
         }

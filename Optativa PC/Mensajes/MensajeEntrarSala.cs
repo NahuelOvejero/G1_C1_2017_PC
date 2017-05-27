@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mensajes
 {
-    class EntrarSala:MensajeBase
+   public class MensajeEntrarSala:MensajeBase
     {
-        public EntrarSala(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala, J)
+        public MensajeEntrarSala(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
         {
 
         }
