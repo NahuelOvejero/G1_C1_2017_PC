@@ -23,7 +23,6 @@ namespace misClases
             this.nroSala = sala;
             this.fecha = new DateTime();
             this.JSONmensaje = J;
-
         }
 
 

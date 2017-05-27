@@ -54,7 +54,7 @@ namespace SN
 
         public bool corroborar(string palabraEnviada)
         {
-            if (palabraDesignada == palabraEnviada)
+            if (palabraDesignada.ToUpper() == palabraEnviada.ToUpper())
                 return true;
             else
                 return false;

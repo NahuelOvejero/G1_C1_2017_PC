@@ -32,5 +32,15 @@ namespace SN
             this.WindowState = FormWindowState.Minimized;
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Sala "  + (sender as Button).Tag + " en mantenimiento","Lo sentimos");
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
