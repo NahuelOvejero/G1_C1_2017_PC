@@ -41,7 +41,8 @@ namespace SN
                 salas.Show();
                 this.WindowState = FormWindowState.Minimized;
             }
-            else if (tbUsuario.Text.Length == 0 || mtbPass.Text.Length == 0)
+            //ya que ocultamos el campo contraseña, permitimos el logeo sin ella
+            else if (tbUsuario.Text.Length == 0)
             {
                 MessageBox.Show("No deje campos vacío para el ingreso", "Error");
             }

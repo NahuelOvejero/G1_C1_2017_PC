@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="clsUsuario.cs" />
     <Compile Include="MensajeBase.cs" />
+    <Compile Include="mensajesEspecificos\MensajeGanador.cs" />
     <Compile Include="MiConBase.cs" />
     <Compile Include="Partida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

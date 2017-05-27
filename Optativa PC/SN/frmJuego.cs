@@ -36,6 +36,7 @@ namespace SN
         private void frmJuego_Load(object sender, EventArgs e)
         {
             lblPalabra.Text = comunicacion.PalabraDesignada;
+            lblPalabra.Text = lblPalabra.Text.ToUpper();
             prueba = new frmPrueba(comunicacion,this);
             prueba.Show();
         }
@@ -92,5 +93,7 @@ namespace SN
         {
             lapiz.Width = (int)nudWidth.Value;
         }
+
+
     }
 }
