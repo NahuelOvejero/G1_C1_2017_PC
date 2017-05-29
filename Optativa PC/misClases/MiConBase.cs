@@ -34,7 +34,10 @@ namespace misClases
         public delegate void llegomsj(string j);
         public event llegomsj mrecibido;
 
-
+        public bool Conectar()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
