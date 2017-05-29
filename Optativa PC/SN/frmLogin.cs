@@ -31,7 +31,7 @@ namespace SN
         
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbUsuario.Text == "Usuario")
+            if (tbUsuario.Text != "" && tbUsuario.Text != null)
             {
                 usuario.User = tbUsuario.Text;
                 usuario.Puntos = 0;
@@ -46,7 +46,7 @@ namespace SN
             {
                 MessageBox.Show("No deje campos vacío para el ingreso", "Error");
             }
-           
-         }
+
+        }
     }
 }
