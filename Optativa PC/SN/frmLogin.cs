@@ -14,6 +14,7 @@ namespace SN
     {
         frmSalas salas;
         clsUsuario usuario = new clsUsuario();
+        clsComunicacion comunicacion = new clsComunicacion();
 
         public frmLogin()
         {
@@ -31,7 +32,13 @@ namespace SN
         
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbUsuario.Text != "" && tbUsuario.Text != null)
+            if (tbUsuario.Text.Length == 0)
+            {
+                MessageBox.Show("No deje campos vacío para el ingreso", "Error");
+            }
+
+            else if (comunicacion.conectar())
+            //if (tbUsuario.Text == "Usuario")
             {
                 usuario.User = tbUsuario.Text;
                 usuario.Puntos = 0;
@@ -41,11 +48,10 @@ namespace SN
                 salas.Show();
                 this.WindowState = FormWindowState.Minimized;
             }
-            //ya que ocultamos el campo contraseña, permitimos el logeo sin ella
-            else if (tbUsuario.Text.Length == 0)
-            {
-                MessageBox.Show("No deje campos vacío para el ingreso", "Error");
-            }
+
+            else
+                MessageBox.Show("Servidor no responde");
+           
 
         }
     }
