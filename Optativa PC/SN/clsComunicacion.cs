@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using misClases;
 
 namespace SN
 {
@@ -60,8 +61,17 @@ namespace SN
                 return false;
         }
 
-        
+        public bool conectar()
+        {
+            bool conn;
+            MiConBase miConBase = new MiConBase();
 
-        
+            conn = miConBase.Conectar();
+            return conn;
+
+        }
+
+
+
     }
 }
