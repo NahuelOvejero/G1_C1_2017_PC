@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlDibujo = new System.Windows.Forms.Panel();
             this.pnlRojo = new System.Windows.Forms.Panel();
             this.pnlNegro = new System.Windows.Forms.Panel();
@@ -46,6 +47,11 @@
             this.nudWidth = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.lblCont = new System.Windows.Forms.Label();
+            this.lblContador = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbUsuarios = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlDibujo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             this.SuspendLayout();
@@ -57,10 +63,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlDibujo.BackColor = System.Drawing.Color.White;
             this.pnlDibujo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDibujo.Controls.Add(this.lblContador);
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pnlDibujo.Location = new System.Drawing.Point(70, 131);
+            this.pnlDibujo.Location = new System.Drawing.Point(196, 131);
             this.pnlDibujo.Name = "pnlDibujo";
-            this.pnlDibujo.Size = new System.Drawing.Size(313, 340);
+            this.pnlDibujo.Size = new System.Drawing.Size(435, 340);
             this.pnlDibujo.TabIndex = 0;
             this.pnlDibujo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseDown);
             this.pnlDibujo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseMove);
@@ -70,7 +77,7 @@
             // 
             this.pnlRojo.BackColor = System.Drawing.Color.Red;
             this.pnlRojo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlRojo.Location = new System.Drawing.Point(16, 65);
+            this.pnlRojo.Location = new System.Drawing.Point(70, 17);
             this.pnlRojo.Name = "pnlRojo";
             this.pnlRojo.Size = new System.Drawing.Size(21, 18);
             this.pnlRojo.TabIndex = 5;
@@ -90,7 +97,7 @@
             // 
             this.pnlBlanco.BackColor = System.Drawing.Color.White;
             this.pnlBlanco.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlBlanco.Location = new System.Drawing.Point(16, 41);
+            this.pnlBlanco.Location = new System.Drawing.Point(43, 17);
             this.pnlBlanco.Name = "pnlBlanco";
             this.pnlBlanco.Size = new System.Drawing.Size(21, 18);
             this.pnlBlanco.TabIndex = 7;
@@ -100,7 +107,7 @@
             // 
             this.pnlVerde.BackColor = System.Drawing.Color.Green;
             this.pnlVerde.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlVerde.Location = new System.Drawing.Point(16, 89);
+            this.pnlVerde.Location = new System.Drawing.Point(97, 17);
             this.pnlVerde.Name = "pnlVerde";
             this.pnlVerde.Size = new System.Drawing.Size(21, 18);
             this.pnlVerde.TabIndex = 8;
@@ -110,7 +117,7 @@
             // 
             this.pnlAzul.BackColor = System.Drawing.Color.Blue;
             this.pnlAzul.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlAzul.Location = new System.Drawing.Point(16, 113);
+            this.pnlAzul.Location = new System.Drawing.Point(124, 17);
             this.pnlAzul.Name = "pnlAzul";
             this.pnlAzul.Size = new System.Drawing.Size(21, 18);
             this.pnlAzul.TabIndex = 9;
@@ -120,7 +127,7 @@
             // 
             this.pnlMarron.BackColor = System.Drawing.Color.Brown;
             this.pnlMarron.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlMarron.Location = new System.Drawing.Point(16, 137);
+            this.pnlMarron.Location = new System.Drawing.Point(151, 17);
             this.pnlMarron.Name = "pnlMarron";
             this.pnlMarron.Size = new System.Drawing.Size(21, 18);
             this.pnlMarron.TabIndex = 10;
@@ -130,7 +137,7 @@
             // 
             this.pnlAmarillo.BackColor = System.Drawing.Color.Yellow;
             this.pnlAmarillo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlAmarillo.Location = new System.Drawing.Point(16, 161);
+            this.pnlAmarillo.Location = new System.Drawing.Point(178, 17);
             this.pnlAmarillo.Name = "pnlAmarillo";
             this.pnlAmarillo.Size = new System.Drawing.Size(21, 18);
             this.pnlAmarillo.TabIndex = 11;
@@ -145,9 +152,9 @@
             this.groupBox1.Controls.Add(this.pnlBlanco);
             this.groupBox1.Controls.Add(this.pnlNegro);
             this.groupBox1.Controls.Add(this.pnlRojo);
-            this.groupBox1.Location = new System.Drawing.Point(4, 184);
+            this.groupBox1.Location = new System.Drawing.Point(196, 83);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(60, 196);
+            this.groupBox1.Size = new System.Drawing.Size(210, 42);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Colores";
@@ -157,7 +164,7 @@
             this.lbPalabrasIncorrectas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPalabrasIncorrectas.FormattingEnabled = true;
-            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(419, 131);
+            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(667, 131);
             this.lbPalabrasIncorrectas.Name = "lbPalabrasIncorrectas";
             this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(142, 329);
             this.lbPalabrasIncorrectas.TabIndex = 13;
@@ -165,7 +172,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(416, 31);
+            this.label1.Location = new System.Drawing.Point(619, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 14;
@@ -174,7 +181,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(416, 71);
+            this.label2.Location = new System.Drawing.Point(619, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 15;
@@ -183,7 +190,7 @@
             // lblNick
             // 
             this.lblNick.AutoSize = true;
-            this.lblNick.Location = new System.Drawing.Point(520, 31);
+            this.lblNick.Location = new System.Drawing.Point(723, 20);
             this.lblNick.Name = "lblNick";
             this.lblNick.Size = new System.Drawing.Size(41, 13);
             this.lblNick.TabIndex = 16;
@@ -192,7 +199,7 @@
             // lblPuntos
             // 
             this.lblPuntos.AutoSize = true;
-            this.lblPuntos.Location = new System.Drawing.Point(522, 71);
+            this.lblPuntos.Location = new System.Drawing.Point(725, 60);
             this.lblPuntos.Name = "lblPuntos";
             this.lblPuntos.Size = new System.Drawing.Size(39, 13);
             this.lblPuntos.TabIndex = 17;
@@ -203,7 +210,7 @@
             // 
             this.lblPalabra.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPalabra.ForeColor = System.Drawing.Color.Tomato;
-            this.lblPalabra.Location = new System.Drawing.Point(70, 101);
+            this.lblPalabra.Location = new System.Drawing.Point(251, 32);
             this.lblPalabra.Name = "lblPalabra";
             this.lblPalabra.Size = new System.Drawing.Size(313, 23);
             this.lblPalabra.TabIndex = 18;
@@ -212,7 +219,7 @@
             // 
             // nudWidth
             // 
-            this.nudWidth.Location = new System.Drawing.Point(15, 147);
+            this.nudWidth.Location = new System.Drawing.Point(478, 98);
             this.nudWidth.Maximum = new decimal(new int[] {
             6,
             0,
@@ -237,7 +244,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 131);
+            this.label3.Location = new System.Drawing.Point(431, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 20;
@@ -245,18 +252,59 @@
             // 
             // lblCont
             // 
-            this.lblCont.Location = new System.Drawing.Point(272, 49);
+            this.lblCont.Location = new System.Drawing.Point(556, 20);
             this.lblCont.Name = "lblCont";
-            this.lblCont.Size = new System.Drawing.Size(52, 23);
+            this.lblCont.Size = new System.Drawing.Size(27, 23);
             this.lblCont.TabIndex = 21;
             this.lblCont.Text = "60";
+            // 
+            // lblContador
+            // 
+            this.lblContador.AutoSize = true;
+            this.lblContador.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContador.Location = new System.Drawing.Point(3, 0);
+            this.lblContador.Name = "lblContador";
+            this.lblContador.Size = new System.Drawing.Size(30, 24);
+            this.lblContador.TabIndex = 24;
+            this.lblContador.Text = "60";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lbUsuarios
+            // 
+            this.lbUsuarios.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbUsuarios.BackColor = System.Drawing.SystemColors.Control;
+            this.lbUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUsuarios.FormattingEnabled = true;
+            this.lbUsuarios.ItemHeight = 20;
+            this.lbUsuarios.Location = new System.Drawing.Point(12, 84);
+            this.lbUsuarios.Name = "lbUsuarios";
+            this.lbUsuarios.Size = new System.Drawing.Size(166, 300);
+            this.lbUsuarios.TabIndex = 22;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(27, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 24);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Usuarios";
             // 
             // frmJuego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(596, 507);
+            this.ClientSize = new System.Drawing.Size(844, 507);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbUsuarios);
             this.Controls.Add(this.lblCont);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nudWidth);
@@ -271,6 +319,8 @@
             this.Name = "frmJuego";
             this.Text = "frmJuego";
             this.Load += new System.EventHandler(this.frmJuego_Load);
+            this.pnlDibujo.ResumeLayout(false);
+            this.pnlDibujo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
             this.ResumeLayout(false);
@@ -298,5 +348,9 @@
         private System.Windows.Forms.NumericUpDown nudWidth;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblCont;
+        private System.Windows.Forms.Label lblContador;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ListBox lbUsuarios;
+        private System.Windows.Forms.Label label4;
     }
 }

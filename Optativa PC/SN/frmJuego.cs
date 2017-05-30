@@ -30,7 +30,8 @@ namespace SN
             grafico = pnlDibujo.CreateGraphics();
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
-        
+            lbUsuarios.Items.Add(usuario.User + "     " + usuario.Puntos.ToString());
+
         }
 
         private void frmJuego_Load(object sender, EventArgs e)
@@ -39,6 +40,8 @@ namespace SN
             lblPalabra.Text = lblPalabra.Text.ToUpper();
             prueba = new frmPrueba(comunicacion,this);
             prueba.Show();
+
+            timer1.Enabled = true;
         }
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
@@ -84,7 +87,7 @@ namespace SN
                 return true;
             else
             {
-                lbPalabrasIncorrectas.Items.Add(rta);
+                lbPalabrasIncorrectas.Items.Add(usuario.User + ": " + rta);
                 return false;
             }
         }
@@ -93,7 +96,14 @@ namespace SN
         {
             lapiz.Width = (int)nudWidth.Value;
         }
-
-
+        int cont = 60;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (cont != 0)
+            {
+                cont--;
+                lblContador.Text = cont.ToString();
+            }
+        }
     }
 }
