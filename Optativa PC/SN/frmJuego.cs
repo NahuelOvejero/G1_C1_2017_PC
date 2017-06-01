@@ -68,8 +68,6 @@ namespace SN
                 // mover el pictureBox con el raton               
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
-                comunicacion.enviaEjes(lapiz,e.X, e.Y,prueba);
-                
             }
         }
            

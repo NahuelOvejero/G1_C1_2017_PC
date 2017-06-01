@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsComunicacion.cs" />
     <Compile Include="clsUsuario.cs" />
     <Compile Include="frmJuego.cs">
       <SubType>Form</SubType>
@@ -82,7 +81,6 @@
     <Compile Include="frmSalas.Designer.cs">
       <DependentUpon>frmSalas.cs</DependentUpon>
     </Compile>
-    <Compile Include="ICom.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmJuego.resx">

@@ -10,7 +10,7 @@ namespace Mensajes
     {
         public MensajeEntrarSala(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
         {
-
+            base.TipoMensaje = this.GetType().Name;
         }
     }
 }

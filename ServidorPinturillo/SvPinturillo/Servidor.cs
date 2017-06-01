@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+using System.Net;
+using System.Net.Sockets;
+using Mensajes;
+using Newtonsoft.Json;
+namespace SvPinturillo
+{
+    public class Servidor
+    {
+        List<string> nombreUsuarios = new List<string>();
+        private delegate void enviarMsj(MensajeBase msg);
+        private event enviarMsj enviar;
+        int port = 8999;
+        IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+        TcpListener server;
+        List<TcpClient> clientes = new List<TcpClient>();
+        public Servidor()
+        {
+            server = new TcpListener(localAddr, port);
+        }
+        public void start()
+        {
+            TcpClient client;
+            server.Start();
+           Console.WriteLine("Servidor iniciado");    
+            while (true)
+            {
+                client = server.AcceptTcpClient();
+                clientes.Add(client);
+                Thread t = new Thread(atender);
+                t.Start(client);
+            }
+        }
+
+        private void Servidor_enviar(MensajeBase msg)
+        {
+
+        }
+        //los usuarios deben recibir los mensajes como eventos del lado del cliente
+        /*
+         TCP Client se lo paso a una clase que maneja con ID y guardar en una lista
+         */
+        private void atender(object tcpClient)
+        {
+            Console.WriteLine("Atendiendo al cliente");
+            TcpClient cliente = (TcpClient)tcpClient;
+            NetworkStream stream = cliente.GetStream();
+            StreamWriter writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
+            StreamReader reader = new StreamReader(stream, Encoding.ASCII);
+            while (cliente.Connected)
+            {
+                try
+                {
+                    string mens = reader.ReadLine();
+                    MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
+                    manejarMensaje(msjBase,cliente);
+                }
+                catch (ArgumentNullException e) { }
+            }
+
+        }
+        private void manejarMensaje(MensajeBase msjBase,TcpClient cliente)
+        {
+            if (msjBase.TipoMensaje == "MensajeIntentarLogin")
+            {
+                Console.WriteLine("Es del tipo "+ msjBase.TipoMensaje);
+                MensajeIntentarLogin msj = (MensajeIntentarLogin)msjBase;
+                if (nombreUsuarios.Contains(msjBase.From))
+                {
+                    MensajeIntentarLogin respuesta = new MensajeIntentarLogin("", "", "No se pudo logear, el nombre ingresado ya está en uso", 0, "");
+                    respuesta.Conectado = false;
+                    string res=
+                }
+            }
+            else if (msjBase.TipoMensaje == "MensajeDibujarPuntos")
+            {
+                Console.WriteLine("Es del tipo "+ msjBase.TipoMensaje);
+            }
+            else if (msjBase.TipoMensaje == "MensajeEntrarSala") {
+                Console.WriteLine("Es del tipo "+msjBase.TipoMensaje);
+            }
+            
+          
+        }
+
+
+    }
+}

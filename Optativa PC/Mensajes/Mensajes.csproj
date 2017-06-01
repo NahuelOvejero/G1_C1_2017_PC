@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DibujarPuntos.cs" />
-    <Compile Include="EntrarSala.cs" />
-    <Compile Include="IntentarLogin.cs" />
+    <Compile Include="MensajeDibujarPuntos.cs" />
+    <Compile Include="MensajeEntrarSala.cs" />
+    <Compile Include="MensajeGanador.cs" />
+    <Compile Include="MensajeIntentarLogin.cs" />
     <Compile Include="MensajeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

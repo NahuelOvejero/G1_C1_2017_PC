@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace misClases.mensajesEspecificos
+namespace Mensajes
 {
     class MensajeGanador : MensajeBase
     {
@@ -18,7 +18,7 @@ namespace misClases.mensajesEspecificos
         
         //dentro del JSON deberia estar el nombre del usuario con mas puntos
 
-        public MensajeGanador(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala, J)
+        public MensajeGanador(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
         {
 
 

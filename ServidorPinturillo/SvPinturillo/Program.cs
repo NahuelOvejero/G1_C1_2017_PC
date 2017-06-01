@@ -10,6 +10,8 @@ namespace SvPinturillo
     {
         static void Main(string[] args)
         {
+            Servidor sv = new Servidor();
+            sv.start();
         }
     }
 }

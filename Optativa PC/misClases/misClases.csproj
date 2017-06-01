@@ -36,6 +36,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,9 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsComunicacion.cs" />
     <Compile Include="clsUsuario.cs" />
-    <Compile Include="MensajeBase.cs" />
-    <Compile Include="mensajesEspecificos\MensajeGanador.cs" />
+    <Compile Include="ICom.cs" />
     <Compile Include="MiConBase.cs" />
     <Compile Include="Partida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mensajes\Mensajes.csproj">
+      <Project>{9c1e3068-6f74-4a3a-8cef-cd743b582e20}</Project>
+      <Name>Mensajes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

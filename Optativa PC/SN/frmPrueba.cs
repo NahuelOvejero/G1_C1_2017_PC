@@ -37,9 +37,7 @@ namespace SN
 
         private void btIngresa_Click(object sender, EventArgs e)
         {
-            if (comunicacion.enviaRta(tbPalabra.Text, juegoform))
-                MessageBox.Show("La palabra es correcta");
-        }
+                  }
 
         private void frmPrueba_Load(object sender, EventArgs e)
         {
@@ -57,10 +55,7 @@ namespace SN
             {
                 if ((tbPalabra.Text != "") && (tbPalabra.Text != null))
                 {
-                    if ((comunicacion.enviaRta(tbPalabra.Text, juegoform)))
-                    {
-                        MessageBox.Show("La palabra es correcta");
-                    }
+                   
                 }
                 tbPalabra.Clear();
             }

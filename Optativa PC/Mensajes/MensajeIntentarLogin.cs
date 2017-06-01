@@ -8,9 +8,26 @@ namespace Mensajes
 {
     public class MensajeIntentarLogin:MensajeBase
     {
-        public MensajeIntentarLogin(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
+        int sala;
+        bool conectado;
+        string mensaje;
+        public MensajeIntentarLogin(string emisor, string receptor, int sala) : base(emisor, receptor, sala)
         {
-
+            base.TipoMensaje = this.GetType().Name;
+            this.sala = sala;
         }
+        public int Sala {
+            get { return sala; }
+            set { sala = value; }
+        }
+        public bool Conectado {
+            get { return conectado; }
+            set { conectado = value; }
+        }
+        public string Mensaje {
+            get { return mensaje; }
+            set { mensaje = value; }
+        }
+
     }
 }

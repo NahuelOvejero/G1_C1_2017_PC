@@ -10,27 +10,28 @@ namespace Mensajes
     {
 
 
-        string idEmisor;
-        string idReceptor;
+        string from,to;
         int nroSala;
         DateTime fecha;
+        String tipoMensaje;
         
 
-        public MensajeBase(string emisor, string receptor, int sala) {
+        public MensajeBase(string from, string to, int sala) {
 
-            this.idEmisor = emisor;
-            this.idReceptor = receptor;
+            this.from = from;
+            this.to = to;
             this.nroSala = sala;
             this.fecha = new DateTime();
            
+           
         }
-        public string IdEmisor {
-            get { return idEmisor; }
-            set { idEmisor = value; }
+        public string From {
+            get { return from; }
+            set { from = value; }
         }
-        public string IdReceptor {
-            get { return idReceptor; }
-            set { idReceptor = value; }
+        public string To {
+            get { return to; }
+            set { to = value; }
         }
         public int NroSala {
             get { return nroSala; }
@@ -39,6 +40,10 @@ namespace Mensajes
         public DateTime Fecha {
             get { return fecha; }
             set { fecha = value; }
+        }
+        public String TipoMensaje {
+            get { return tipoMensaje; }
+            set { tipoMensaje = value; }
         }
     }
 }
