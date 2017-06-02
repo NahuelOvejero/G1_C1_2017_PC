@@ -23,7 +23,7 @@ namespace SvPinturillo
         private object _ListaLocker = new object(),_banderLocker=new object();
         List<Cliente> listaClientes = new List<Cliente>();
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
-        string palabraDesignada;
+        string palabraDesignada="perro";
 
 
 
@@ -146,12 +146,14 @@ namespace SvPinturillo
                     respuesta.Conectado = true;
                     Cliente c = new Cliente(clienteAutenticando, nombre);
                     c.Recibir += C_Recibir;
+                    c.Desconectar += C_Desconectar;
                     lock (_ListaLocker)
                     {          
                         listaClientes.Add(c);
                     }
                     Thread HiloAtender = new Thread(c.atender);
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
+                    Console.WriteLine("Total conectados " + listaClientes.Count);
                     string resp = JsonConvert.SerializeObject(respuesta);
                     writer.WriteLine(resp);
                     HiloAtender.Start();
@@ -169,6 +171,16 @@ namespace SvPinturillo
             }
         }
 
+        private void C_Desconectar(string id)
+        {
+            int i=listaClientes.IndexOf(filtrar(id));
+            lock (_ListaLocker)
+            {   if(i>-1)
+                listaClientes.RemoveAt(i);
+            }
+            Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
+        }
+
         private void C_Recibir(MensajeBase msg)
         {
             //si es para el servidor:
@@ -179,11 +191,20 @@ namespace SvPinturillo
                 {
                     case "MensajeEnviarPalabra" :
                         MensajeEnviarPalabra mj = (MensajeEnviarPalabra) msg;
-
+                        Cliente c = filtrar(mj.From);
+                        
                         if (corroborar(mj.Palabra)) {
-                            //filtrar(mj.From).enviar();
+                           
+                            if (c != null) {
+                                mj.To = mj.From;
+                                mj.From = "";
+                                mj.Correcta = true; 
+                                c.enviar(mj);
+                            }
                         }
                         else {
+                            
+                            enviarTodos(mj, "");
                            // filtrar(mj.From).enviar();
                         }
                         break;

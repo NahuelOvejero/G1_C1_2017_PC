@@ -43,7 +43,7 @@ namespace SN
         {
             Color colorcito = Color.FromArgb(m.ColorRGB);
             Pen lap = new Pen(colorcito,m.Grosor);
-            grafico.DrawLine(lap,m.CordX,m.CordY,m.CordX+1,m.CordY);
+            pnlDibujo.Invoke((Action)(()=> grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
         }
 
         private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
