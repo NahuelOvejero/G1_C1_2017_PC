@@ -15,12 +15,13 @@ namespace SN
         frmJuego juego;
         
         clsUsuario usuario;
-        clsComunicacion comunicacion = new clsComunicacion();
+        clsComunicacion comunicacion;
 
-        public frmSalas(clsUsuario us)
+        public frmSalas(clsUsuario us,clsComunicacion comunicacion)
         {
             InitializeComponent();
             usuario = us;
+            this.comunicacion = comunicacion;
             label3.Text = usuario.User;
         }
 

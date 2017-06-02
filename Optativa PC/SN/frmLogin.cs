@@ -51,7 +51,7 @@ namespace SN
                 if (i == 0)
                 {
                      MessageBox.Show("Logeado", "logeado");
-                    salas = new frmSalas(usuario);
+                    salas = new frmSalas(usuario,comunicacion);
                     salas.Show();
                 }
                 else if (i == 1)

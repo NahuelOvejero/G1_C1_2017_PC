@@ -110,14 +110,14 @@ namespace SN
             lapiz.Width = (int)nudWidth.Value;
         }
         int cont = 60;
-        private void timer1_Tick(object sender, EventArgs e)
+      /*  private void timer1_Tick(object sender, EventArgs e)
         {
             if (cont != 0)
             {
                 cont--;
                 lblContador.Text = cont.ToString();
             }
-        }
+        }*/
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {

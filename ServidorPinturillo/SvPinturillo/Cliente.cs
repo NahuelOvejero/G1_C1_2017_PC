@@ -39,7 +39,9 @@ namespace SvPinturillo
             {
                 try
                 {
+                   
                     string mensaje = reader.ReadLine();
+                   
                     MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
                     switch (msj.TipoMensaje)
                     {

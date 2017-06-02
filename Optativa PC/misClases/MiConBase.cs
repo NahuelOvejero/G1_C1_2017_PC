@@ -27,7 +27,7 @@ namespace misClases
             try
             {
        
-                client = new TcpClient("192.168.101.245", port);
+                client = new TcpClient("192.168.1.211", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream) { AutoFlush = true };
@@ -45,7 +45,7 @@ namespace misClases
         public void enviar(string msg)
         {
             try { writer.WriteLine(msg); }
-            catch (NullReferenceException e) { }            
+            catch (NullReferenceException e) { string s = e.Message; }            
         }
     }
 }

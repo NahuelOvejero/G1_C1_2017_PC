@@ -17,10 +17,10 @@ namespace SvPinturillo
 
 
         int port = 8999;
-        IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+        IPAddress localAddr = IPAddress.Parse("192.168.1.211");//127.0.0.1");
         TcpListener server;
         TcpClient client;
-        private object _ListaLocker = new object();
+        private object _ListaLocker = new object(),_banderLocker=new object();
         List<Cliente> listaClientes = new List<Cliente>();
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
         string palabraDesignada;
@@ -39,10 +39,10 @@ namespace SvPinturillo
             server.Start();
             Console.WriteLine("Servidor iniciado");
             while (true)
-            {
-                client = server.AcceptTcpClient();
+            {           
+                TcpClient client = server.AcceptTcpClient();
                 Thread Hiloautenticar = new Thread(autenticar);
-                Hiloautenticar.Start(client);
+                Hiloautenticar.Start(client);          
             }
         }
 
@@ -53,7 +53,7 @@ namespace SvPinturillo
             {
                 foreach (Cliente c in listaClientes)
                 {
-                    if (c.Id == nombre)
+                    if (c.Id.CompareTo(nombre)==0)
                     {
                         libre = false;
                         break;
@@ -131,11 +131,10 @@ namespace SvPinturillo
         public void autenticar(object client)
         {
             TcpClient clienteAutenticando = (TcpClient)client;
-            bool agregado = false;
             NetworkStream stream = clienteAutenticando.GetStream();
             StreamWriter writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
             StreamReader reader = new StreamReader(stream, Encoding.ASCII);
-            while (!agregado)
+            while (true)
             {
                 string mens = reader.ReadLine();
                 MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
@@ -145,24 +144,24 @@ namespace SvPinturillo
                 {
                     MensajeLogin respuesta = new MensajeLogin("", nombre, 0);
                     respuesta.Conectado = true;
-                    respuesta.Mensaje = "Conectado";
+                    Cliente c = new Cliente(clienteAutenticando, nombre);
+                    c.Recibir += C_Recibir;
                     lock (_ListaLocker)
-                    {
-                        Cliente c = new Cliente(clienteAutenticando, nombre);
-                        c.Recibir += C_Recibir;
+                    {          
                         listaClientes.Add(c);
-
                     }
+                    Thread HiloAtender = new Thread(c.atender);
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
                     string resp = JsonConvert.SerializeObject(respuesta);
-                    agregado = true;
                     writer.WriteLine(resp);
+                    HiloAtender.Start();
+                    break;
                 }
                 else
                 {
                     MensajeLogin respuesta = new MensajeLogin("", "", 0);
                     respuesta.Conectado = false;
-                    respuesta.Mensaje = "Nombre de usuario ya existente";
+                    respuesta.Mensaje = "Nombre de usuario ya existente ";
                     string resp = JsonConvert.SerializeObject(respuesta);
                     Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
                     writer.WriteLine(resp);
