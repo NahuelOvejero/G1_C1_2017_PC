@@ -16,7 +16,7 @@ namespace misClases
         void enviaRta(string rta, string Nombre,int puntos);
 
 
-       bool corroborar(string palabraEnviada);
+
 
         void enviarDibujado(Pen lapiz, Point p1,string nombre);
 

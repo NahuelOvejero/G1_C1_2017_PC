@@ -54,7 +54,7 @@ namespace SN
             }
             else
             {
-                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(m.Palabra); }));
+                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(usuario.User + ": "+m.Palabra); }));
             }
         }
 
@@ -105,18 +105,6 @@ namespace SN
             Panel color = (Panel)sender;
             lapiz.Color = color.BackColor;
         }
-
-        public bool rtas(string rta)
-        {
-            if (comunicacion.corroborar(rta))
-                return true;
-            else
-            {
-                lbPalabrasIncorrectas.Items.Add(usuario.User + ": " + rta);
-                return false;
-            }
-        }
-
         private void nudWidth_ValueChanged(object sender, EventArgs e)
         {
             lapiz.Width = (int)nudWidth.Value;
@@ -137,7 +125,7 @@ namespace SN
             {
                 if ((tbPalabra.Text != "") && (tbPalabra.Text != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(tbPalabra.Text, usuario.User));
+                    Task.Run(() => comunicacion.enviaRta(tbPalabra.Text, usuario.User,37));
                 }
                 tbPalabra.Clear();
             }

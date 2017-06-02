@@ -47,8 +47,7 @@ namespace misClases
         public clsComunicacion()
         {
             Random r = new Random();
-            int i = r.Next(0, palabras.Count());
-            palabraDesignada = palabras[i];
+          
             serializador = new Serializador();
             ConBase = new MiConBase(serializador);
             Thread tEscucha = new Thread(ConBase.read);
