@@ -26,10 +26,24 @@ namespace SN
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Task.Run(() => comunicacion.entrar_sala(usuario.User,"server",1,""));
+
             juego = new frmJuego(usuario,comunicacion);
             juego.Show();
            
             this.WindowState = FormWindowState.Minimized;
+
+
+
+           /* usuario.User = tbUsuario.Text;
+            Task.Run(() => comunicacion.conectar(usuario.User));
+            //Abre el otro formulario
+            int i = WaitHandle.WaitAny(new WaitHandle[] { _ARELogeo, _ARENoLogeo });
+            if (i == 0)
+            {
+                salas = new frmSalas(usuario);
+                salas.Show();
+            }*/
 
         }
 
