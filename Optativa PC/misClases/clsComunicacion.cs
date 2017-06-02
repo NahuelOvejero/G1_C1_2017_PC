@@ -14,12 +14,16 @@ namespace misClases
         int segundos=60;
 
         private Serializador serializador;
+        #region eventos
+        public delegate void DelLogeo(MensajeLogin m);
+        public event DelLogeo Logear;
+        public delegate void DelEntrarSala(MensajeEntrarSala m);
+        public event DelEntrarSala EntraSala;
+        public delegate void DelDibujar(MensajeDibujarPuntos m);
+        public event DelDibujar Dibujar;
 
-        public  void enviaEjes(Pen lapiz, int x1, int y1)
-        {
-           
+        #endregion
 
-        }
         public void contador()
         {
             segundos--;
@@ -84,9 +88,11 @@ namespace misClases
             }
         }
 
-        public void enviarDibujado(Pen lapiz, Point p1, Point p2)
+        public void enviarDibujado(Pen lapiz, Point p1,string nombre)
         {
 
+            MensajeDibujarPuntos dibPuntos = new MensajeDibujarPuntos(nombre, "*",(int) lapiz.Width, lapiz.Color.ToArgb(), p1.X, p1.Y, 0, "");
+            serializador.enviarMensaje(dibPuntos);
         }
 
         public bool corroborar(string palabraEnviada)
@@ -106,10 +112,5 @@ namespace misClases
             serializador.enviarMensaje(entrasala);
         }
 
-        public delegate void EventoLogeo(MensajeLogin m);
-        public event EventoLogeo Logear;
-
-        public delegate void EventoEntrarSala(MensajeEntrarSala m);
-        public event EventoEntrarSala EntraSala;
     }
 }

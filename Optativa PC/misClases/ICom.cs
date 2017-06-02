@@ -11,14 +11,14 @@ namespace misClases
     {
 
 
-        void enviaEjes(Pen lapiz, int x1, int y1);
+       
 
         bool enviaRta(string rta );
 
 
        bool corroborar(string palabraEnviada);
 
-        void enviarDibujado(Pen lapiz, Point p1, Point p2);
+        void enviarDibujado(Pen lapiz, Point p1,string nombre);
 
         void conectar(string nombre);
 

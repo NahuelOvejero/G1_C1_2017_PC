@@ -18,7 +18,7 @@ namespace SN
         clsUsuario usuario = new clsUsuario();
         clsComunicacion comunicacion = new clsComunicacion();
         EventWaitHandle _ARELogeo = new AutoResetEvent(false),_ARENoLogeo=new AutoResetEvent(false);
-
+        string mensaje;
         public frmLogin()
         {
             InitializeComponent();
@@ -47,13 +47,21 @@ namespace SN
                 usuario.User = tbUsuario.Text;
                 Task.Run(()=>comunicacion.conectar(usuario.User));
                 //Abre el otro formulario
-                int i = WaitHandle.WaitAny(new WaitHandle[] {_ARELogeo,_ARENoLogeo });
+                int i = WaitHandle.WaitAny(new WaitHandle[] {_ARELogeo,_ARENoLogeo },10000);
                 if (i == 0)
                 {
+                    MessageBox.Show("Logeado", "logeado");
                     salas = new frmSalas(usuario);
                     salas.Show();
                 }
-               
+                else if (i == 1)
+                {
+                    MessageBox.Show(mensaje);
+                }
+                else
+                {
+                    MessageBox.Show("Se agotó el tiempo de espera, vuelva a reintentarlo");
+                }
             }
 
            
@@ -64,14 +72,14 @@ namespace SN
         {
             if (m.Conectado)
             {
-                MessageBox.Show("Logeado", "logeado");
+                
                 _ARELogeo.Set();
                 
                // this.WindowState = FormWindowState.Minimized;
             }
             else
             {
-                MessageBox.Show(m.Mensaje);
+               mensaje=m.Mensaje;
                 _ARENoLogeo.Set();
             }
         }

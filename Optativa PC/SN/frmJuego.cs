@@ -66,9 +66,12 @@ namespace SN
         {
             if (btnDown)
             {
-                // mover el pictureBox con el raton               
+
+                int x = e.X;
+                int y = e.Y;            
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
-                grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
+                // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
+                Task.Run(()=>comunicacion.enviarDibujado(lapiz, new Point(x, y), usuario.User));
             }
         }
            
