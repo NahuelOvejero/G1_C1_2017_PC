@@ -11,6 +11,10 @@ namespace SvPinturillo
 {
     public class Cliente
     {
+
+
+        public event delRec Recibir;
+
         TcpClient cliente;
         string id;
         NetworkStream stream;
@@ -21,7 +25,6 @@ namespace SvPinturillo
         }
         #region eventos
         public delegate void delRecibir(MensajeBase mensaje);
-        public event delRecibir recibir;
         #endregion
         public Cliente(TcpClient cliente, string id) {
             this.cliente = cliente;
@@ -36,14 +39,69 @@ namespace SvPinturillo
             {
                 try
                 {
-                    string mens = reader.ReadLine();
-                    MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
-                                   
+                    string mensaje = reader.ReadLine();
+                    MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
+                    switch (msj.TipoMensaje)
+                    {
+
+                        case "MensajeLogin":
+                            msj = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                            break;
+
+                        case "MensajeDibujarPuntos":
+                            msj = JsonConvert.DeserializeObject<MensajeDibujarPuntos>(mensaje);
+                            break;
+
+                        case "MensajeEntrarSala":
+                            msj = JsonConvert.DeserializeObject<MensajeEntrarSala>(mensaje);
+                            break;
+
+                        case "MensajeGanador":
+                            msj = JsonConvert.DeserializeObject<MensajeGanador>(mensaje);
+                            break;
+                        default:
+                            msj = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                            break;
+                    }
+
+                    if(Recibir != null) { 
+                           Recibir(msj);
+                        }
+
                 }
                 catch (ArgumentNullException e) { }
             }
         }
 
 
+        public void enviar(MensajeBase msj) {
+            string str = JsonConvert.SerializeObject(msj);
+            writer.WriteLine(str);
+        }
+
+
     }
+
+    public delegate void delRec(MensajeBase msg);
 }
+
+/*                     string mens = reader.ReadLine();
+                    MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
+                    switch (msjBase.TipoMensaje) {
+
+                        case "MensajeLogin": break;
+
+                        case "MensajeDibujarPuntos": break;
+
+                        case "MensajeEntrarSala": break;
+
+                        case "MensajeGanador": break;
+
+                        case "MensajeBase": break;
+
+                        default : break;
+
+                    }
+
+
+    */
