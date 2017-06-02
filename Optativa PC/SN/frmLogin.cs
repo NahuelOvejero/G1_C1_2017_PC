@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using misClases;
 using Mensajes;
@@ -16,7 +17,8 @@ namespace SN
         frmSalas salas;
         clsUsuario usuario = new clsUsuario();
         clsComunicacion comunicacion = new clsComunicacion();
-        string mensaje;
+        EventWaitHandle _ARELogeo = new AutoResetEvent(false),_ARENoLogeo=new AutoResetEvent(false);
+
         public frmLogin()
         {
             InitializeComponent();
@@ -45,6 +47,12 @@ namespace SN
                 usuario.User = tbUsuario.Text;
                 Task.Run(()=>comunicacion.conectar(usuario.User));
                 //Abre el otro formulario
+                int i = WaitHandle.WaitAny(new WaitHandle[] {_ARELogeo,_ARENoLogeo });
+                if (i == 0)
+                {
+                    salas = new frmSalas(usuario);
+                    salas.Show();
+                }
                
             }
 
@@ -57,13 +65,14 @@ namespace SN
             if (m.Conectado)
             {
                 MessageBox.Show("Logeado", "logeado");
-                salas = new frmSalas(usuario);
-                salas.Show();
+                _ARELogeo.Set();
+                
                // this.WindowState = FormWindowState.Minimized;
             }
             else
             {
                 MessageBox.Show(m.Mensaje);
+                _ARENoLogeo.Set();
             }
         }
     }
