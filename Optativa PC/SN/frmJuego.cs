@@ -56,7 +56,7 @@ namespace SN
             }
             else
             {
-                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(usuario.User + ": "+m.Palabra); }));
+                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(m.From + ": "+m.Palabra); }));
             }
         }
 
@@ -128,11 +128,12 @@ namespace SN
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {
+            string rta = tbPalabra.Text;
             if (((int)e.KeyChar == (int)Keys.Enter))
             {
-                if ((tbPalabra.Text != "") && (tbPalabra.Text != null))
+                if ((rta != "") && (rta != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(tbPalabra.Text, usuario.User,37));
+                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,37));
                 }
                 tbPalabra.Clear();
             }
