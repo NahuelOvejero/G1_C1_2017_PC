@@ -29,12 +29,20 @@ namespace SN
             usuario = us;
             comunicacion = c;
             comunicacion.RespuestaPalabraEnviada += Comunicacion_RespuestaPalabraEnviada;
+            comunicacion.Dibujar += Comunicacion_Dibujar;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             grafico = pnlDibujo.CreateGraphics();
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
             lbUsuarios.Items.Add(usuario.User + "     " + usuario.Puntos.ToString());
 
+        }
+
+        private void Comunicacion_Dibujar(MensajeDibujarPuntos m)
+        {
+            Color colorcito = Color.FromArgb(m.ColorRGB);
+            Pen lap = new Pen(colorcito,m.Grosor);
+            grafico.DrawLine(lap,m.CordX,m.CordY,m.CordX+1,m.CordY);
         }
 
         private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
