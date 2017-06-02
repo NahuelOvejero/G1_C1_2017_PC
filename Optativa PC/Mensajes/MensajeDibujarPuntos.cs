@@ -11,6 +11,10 @@ namespace Mensajes
         int grosor, colorRGB, cordX, cordY;
         public MensajeDibujarPuntos(string emisor, string receptor,int grosor,int colorRGB,int cordX,int cordY, int sala, string J) : base(emisor, receptor, sala)
         {
+            this.grosor = grosor;
+            this.colorRGB = colorRGB;
+            this.cordX = cordX;
+            this.cordY = cordY;
             base.TipoMensaje = this.GetType().Name;
         }
         public int Grosor {

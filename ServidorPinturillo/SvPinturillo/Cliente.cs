@@ -41,11 +41,10 @@ namespace SvPinturillo
                 {
                    
                     string mensaje = reader.ReadLine();
-                   
+                    Console.WriteLine(mensaje);
                     MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
                     switch (msj.TipoMensaje)
                     {
-
                         case "MensajeLogin":
                             msj = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
                             break;
@@ -77,7 +76,9 @@ namespace SvPinturillo
 
 
         public void enviar(MensajeBase msj) {
+            
             string str = JsonConvert.SerializeObject(msj);
+            Console.WriteLine(msj);
             writer.WriteLine(str);
         }
 

@@ -97,10 +97,10 @@ namespace misClases
             }
         }
 
-        public void enviarDibujado(Pen lapiz, Point p1,string nombre)
+        public void enviarDibujado(Pen lapiz, int x,int y,string nombre)
         {
 
-            MensajeDibujarPuntos dibPuntos = new MensajeDibujarPuntos(nombre, "*",(int) lapiz.Width, lapiz.Color.ToArgb(), p1.X, p1.Y, 0, "");
+            MensajeDibujarPuntos dibPuntos = new MensajeDibujarPuntos(nombre, "*",(int) lapiz.Width, lapiz.Color.ToArgb(),x, y, 0, "");
             serializador.enviarMensaje(dibPuntos);
         }
 

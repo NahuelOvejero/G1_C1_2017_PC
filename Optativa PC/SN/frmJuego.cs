@@ -17,7 +17,7 @@ namespace SN
     {
         private bool btnDown;
         Pen lapiz;
-        Graphics grafico;
+        Graphics grafico,grafsecundario;
         clsUsuario usuario;
         //frmPrueba prueba;
         clsComunicacion comunicacion;
@@ -32,6 +32,7 @@ namespace SN
             comunicacion.Dibujar += Comunicacion_Dibujar;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             grafico = pnlDibujo.CreateGraphics();
+          //  grafsecundario = pnlSecundarioDIbujar.CreateGraphics();
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
             lbUsuarios.Items.Add(usuario.User + "     " + usuario.Puntos.ToString());
@@ -88,13 +89,11 @@ namespace SN
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
             if (btnDown)
-            {
-
-                int x = e.X;
-                int y = e.Y;            
+            {       
                 grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
                 // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
-                Task.Run(()=>comunicacion.enviarDibujado(lapiz, new Point(x, y), usuario.User));
+                Task.Run(()=>comunicacion.enviarDibujado(lapiz,e.X,e.Y, usuario.User));
+               
             }
         }
            
@@ -110,14 +109,20 @@ namespace SN
             lapiz.Width = (int)nudWidth.Value;
         }
         int cont = 60;
-      /*  private void timer1_Tick(object sender, EventArgs e)
+
+        private void lbUsuarios_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cont != 0)
-            {
-                cont--;
-                lblContador.Text = cont.ToString();
-            }
-        }*/
+
+        }
+
+        /*  private void timer1_Tick(object sender, EventArgs e)
+ {
+     if (cont != 0)
+     {
+         cont--;
+         lblContador.Text = cont.ToString();
+     }
+ }*/
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {

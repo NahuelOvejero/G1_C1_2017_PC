@@ -18,7 +18,7 @@ namespace misClases
 
 
 
-        void enviarDibujado(Pen lapiz, Point p1,string nombre);
+        void enviarDibujado(Pen lapiz,int x,int y,string nombre);
 
         void conectar(string nombre);
 

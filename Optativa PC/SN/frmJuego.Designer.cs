@@ -272,7 +272,6 @@
             // timer1
             // 
             this.timer1.Interval = 1000;
-            //this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // lbUsuarios
             // 
@@ -286,6 +285,7 @@
             this.lbUsuarios.Name = "lbUsuarios";
             this.lbUsuarios.Size = new System.Drawing.Size(166, 300);
             this.lbUsuarios.TabIndex = 22;
+            this.lbUsuarios.SelectedIndexChanged += new System.EventHandler(this.lbUsuarios_SelectedIndexChanged);
             // 
             // label4
             // 

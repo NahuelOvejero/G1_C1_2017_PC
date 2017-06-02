@@ -39,11 +39,13 @@ namespace misClases
             while (true)
             {
                 string e = reader.ReadLine();
+                Console.WriteLine(e);
                 serializador.recibirMensaje(e);
             }
         }
         public void enviar(string msg)
         {
+            Console.WriteLine(msg);
             try { writer.WriteLine(msg); }
             catch (NullReferenceException e) { string s = e.Message; }            
         }
