@@ -104,8 +104,11 @@ namespace SvPinturillo
             {
                 Console.WriteLine("Es del tipo "+ msjBase.TipoMensaje);
             }
-            else if (msjBase.TipoMensaje == "MensajeEntrarSala") {
+            else if (msjBase.TipoMensaje == "EntraSala") {
                 Console.WriteLine("Es del tipo "+msjBase.TipoMensaje);
+               
+
+
             }
             
           
