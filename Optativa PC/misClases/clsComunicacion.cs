@@ -69,6 +69,18 @@ namespace misClases
                     }
                     break;
 
+                case "EntraSala":
+                    if (EntraSala != null)
+                    {
+                        try
+                        {
+                            MensajeEntrarSala msgEn = (MensajeEntrarSala)msg;
+                            EntraSala(msgEn);
+                        }
+                        catch (InvalidCastException e) { }
+                    }
+                    break;
+
             }
         }
 
@@ -87,8 +99,17 @@ namespace misClases
             MensajeLogin intentarLogin = new MensajeLogin(nombre, "", 0);
             serializador.enviarMensaje(intentarLogin);
         }
-   
+
+        public void entrar_sala(string emisor, string receptor, int sala, string js)
+        {
+            MensajeEntrarSala entrasala = new MensajeEntrarSala(emisor,receptor,sala,js);
+            serializador.enviarMensaje(entrasala);
+        }
+
         public delegate void EventoLogeo(MensajeLogin m);
         public event EventoLogeo Logear;
+
+        public delegate void EventoEntrarSala(MensajeEntrarSala m);
+        public event EventoEntrarSala EntraSala;
     }
 }
