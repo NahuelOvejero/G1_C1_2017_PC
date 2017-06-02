@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlDibujo = new System.Windows.Forms.Panel();
+            this.lblContador = new System.Windows.Forms.Label();
             this.pnlRojo = new System.Windows.Forms.Panel();
             this.pnlNegro = new System.Windows.Forms.Panel();
             this.pnlBlanco = new System.Windows.Forms.Panel();
@@ -47,10 +48,10 @@
             this.nudWidth = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.lblCont = new System.Windows.Forms.Label();
-            this.lblContador = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lbUsuarios = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.tbPalabra = new System.Windows.Forms.TextBox();
             this.pnlDibujo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
@@ -67,11 +68,21 @@
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Cross;
             this.pnlDibujo.Location = new System.Drawing.Point(196, 131);
             this.pnlDibujo.Name = "pnlDibujo";
-            this.pnlDibujo.Size = new System.Drawing.Size(435, 340);
+            this.pnlDibujo.Size = new System.Drawing.Size(464, 342);
             this.pnlDibujo.TabIndex = 0;
             this.pnlDibujo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseDown);
             this.pnlDibujo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseMove);
             this.pnlDibujo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlDibujo_MouseUp);
+            // 
+            // lblContador
+            // 
+            this.lblContador.AutoSize = true;
+            this.lblContador.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContador.Location = new System.Drawing.Point(3, 0);
+            this.lblContador.Name = "lblContador";
+            this.lblContador.Size = new System.Drawing.Size(30, 24);
+            this.lblContador.TabIndex = 24;
+            this.lblContador.Text = "60";
             // 
             // pnlRojo
             // 
@@ -164,9 +175,9 @@
             this.lbPalabrasIncorrectas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPalabrasIncorrectas.FormattingEnabled = true;
-            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(667, 131);
+            this.lbPalabrasIncorrectas.Location = new System.Drawing.Point(710, 131);
             this.lbPalabrasIncorrectas.Name = "lbPalabrasIncorrectas";
-            this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(142, 329);
+            this.lbPalabrasIncorrectas.Size = new System.Drawing.Size(142, 342);
             this.lbPalabrasIncorrectas.TabIndex = 13;
             // 
             // label1
@@ -258,16 +269,6 @@
             this.lblCont.TabIndex = 21;
             this.lblCont.Text = "60";
             // 
-            // lblContador
-            // 
-            this.lblContador.AutoSize = true;
-            this.lblContador.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContador.Location = new System.Drawing.Point(3, 0);
-            this.lblContador.Name = "lblContador";
-            this.lblContador.Size = new System.Drawing.Size(30, 24);
-            this.lblContador.TabIndex = 24;
-            this.lblContador.Text = "60";
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
@@ -281,7 +282,7 @@
             this.lbUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbUsuarios.FormattingEnabled = true;
             this.lbUsuarios.ItemHeight = 20;
-            this.lbUsuarios.Location = new System.Drawing.Point(12, 84);
+            this.lbUsuarios.Location = new System.Drawing.Point(33, 94);
             this.lbUsuarios.Name = "lbUsuarios";
             this.lbUsuarios.Size = new System.Drawing.Size(166, 300);
             this.lbUsuarios.TabIndex = 22;
@@ -291,18 +292,27 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(27, 30);
+            this.label4.Location = new System.Drawing.Point(48, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 24);
             this.label4.TabIndex = 23;
             this.label4.Text = "Usuarios";
+            // 
+            // tbPalabra
+            // 
+            this.tbPalabra.Location = new System.Drawing.Point(231, 494);
+            this.tbPalabra.Name = "tbPalabra";
+            this.tbPalabra.Size = new System.Drawing.Size(388, 20);
+            this.tbPalabra.TabIndex = 24;
+            this.tbPalabra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPalabra_KeyPress);
             // 
             // frmJuego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(844, 507);
+            this.ClientSize = new System.Drawing.Size(887, 526);
+            this.Controls.Add(this.tbPalabra);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbUsuarios);
             this.Controls.Add(this.lblCont);
@@ -352,5 +362,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ListBox lbUsuarios;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbPalabra;
     }
 }

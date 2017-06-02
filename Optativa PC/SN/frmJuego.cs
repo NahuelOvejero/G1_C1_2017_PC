@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using misClases;
+using Mensajes;
 namespace SN
 {
    
@@ -18,7 +19,7 @@ namespace SN
         Pen lapiz;
         Graphics grafico;
         clsUsuario usuario;
-        frmPrueba prueba;
+        //frmPrueba prueba;
         clsComunicacion comunicacion;
         
 
@@ -27,12 +28,26 @@ namespace SN
             InitializeComponent();
             usuario = us;
             comunicacion = c;
+            comunicacion.RespuestaPalabraEnviada += Comunicacion_RespuestaPalabraEnviada;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             grafico = pnlDibujo.CreateGraphics();
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
             lbUsuarios.Items.Add(usuario.User + "     " + usuario.Puntos.ToString());
 
+        }
+
+        private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
+        {
+            if (m.Correcta)
+            {
+                usuario.Puntos += m.Puntos;
+                MessageBox.Show("Ganaste!");
+            }
+            else
+            {
+                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(m.Palabra); }));
+            }
         }
 
         private void frmJuego_Load(object sender, EventArgs e)
@@ -107,5 +122,18 @@ namespace SN
                 lblContador.Text = cont.ToString();
             }
         }
+
+        private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((int)e.KeyChar == (int)Keys.Enter))
+            {
+                if ((tbPalabra.Text != "") && (tbPalabra.Text != null))
+                {
+                    Task.Run(() => comunicacion.enviaRta(tbPalabra.Text, usuario.User));
+                }
+                tbPalabra.Clear();
+            }
+        }
+
     }
 }

@@ -26,23 +26,18 @@ namespace misClases
             switch (mb.TipoMensaje)
             {
                 case "MensajeLogin":
-                    {
-                        MensajeLogin mL= JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
-                        if (Recibir != null)
-                            Recibir(mL);
-                        ; break;
-                    }
-                case "EntraSala":
-                    {
-                        MensajeLogin mL = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
-                        if (Recibir != null)
-                            Recibir(mL);
-                        ; break;
-                    }
+                        mb= JsonConvert.DeserializeObject<MensajeLogin>(mensaje);break;
+                case "MensajeEntrarSala":        
+                       mb = JsonConvert.DeserializeObject<MensajeEntrarSala>(mensaje);break;     
+                case "MensajeDibujarPuntos":
+                        mb = JsonConvert.DeserializeObject<MensajeDibujarPuntos>(mensaje);break;
+                case "MensajeEnviarPalabra":
+                    mb = JsonConvert.DeserializeObject<MensajeEnviarPalabra>(mensaje);break;
             }
-           
-        }
- 
+            if (Recibir != null)
+                Recibir(mb);
+         }
+         
         public void enviarMensaje(MensajeBase msg) {
             string mensaje = JsonConvert.SerializeObject(msg);
             if (Enviar != null) {

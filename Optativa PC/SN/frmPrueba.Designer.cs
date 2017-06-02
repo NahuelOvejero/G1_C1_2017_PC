@@ -75,7 +75,7 @@
             // 
             // tbPalabra
             // 
-            this.tbPalabra.Location = new System.Drawing.Point(586, 382);
+            this.tbPalabra.Location = new System.Drawing.Point(586, 428);
             this.tbPalabra.Name = "tbPalabra";
             this.tbPalabra.Size = new System.Drawing.Size(142, 20);
             this.tbPalabra.TabIndex = 2;

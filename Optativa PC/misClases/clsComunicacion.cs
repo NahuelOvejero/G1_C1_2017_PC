@@ -21,7 +21,8 @@ namespace misClases
         public event DelEntrarSala EntraSala;
         public delegate void DelDibujar(MensajeDibujarPuntos m);
         public event DelDibujar Dibujar;
-
+        public delegate void DelRespPalabra(MensajeEnviarPalabra m);
+        public event DelRespPalabra RespuestaPalabraEnviada;
         #endregion
 
         public void contador()
@@ -33,10 +34,7 @@ namespace misClases
             get { return segundos; }
         }
 
-        public  bool enviaRta(string rta)
-        {
-            return false;
-        }
+       
 
         string palabraDesignada;
 
@@ -73,7 +71,7 @@ namespace misClases
                     }
                     break;
 
-                case "EntraSala":
+                case "MensajeEntrarSala":
                     if (EntraSala != null)
                     {
                         try
@@ -82,6 +80,19 @@ namespace misClases
                             EntraSala(msgEn);
                         }
                         catch (InvalidCastException e) { }
+                    }
+                    break;
+                case "MensajeDibujarPuntos":
+                    MensajeDibujarPuntos msgDibPun = (MensajeDibujarPuntos)msg;
+                    if (Dibujar != null) {
+                        Dibujar(msgDibPun);
+                    }
+                    break;
+                case "MensajeEnviarPalabra":
+                    MensajeEnviarPalabra msgEnvPal = (MensajeEnviarPalabra)msg;
+                    if (RespuestaPalabraEnviada != null)
+                    {
+                        RespuestaPalabraEnviada(msgEnvPal);
                     }
                     break;
 
@@ -100,6 +111,7 @@ namespace misClases
             return palabraDesignada.ToUpper() == palabraEnviada.ToUpper();        
         }
 
+        #region enviarMensajes
         public void conectar(string nombre)
         {
             MensajeLogin intentarLogin = new MensajeLogin(nombre, "", 0);
@@ -111,6 +123,11 @@ namespace misClases
             MensajeEntrarSala entrasala = new MensajeEntrarSala(emisor,receptor,sala,js);
             serializador.enviarMensaje(entrasala);
         }
-
+        public void enviaRta(string rta, string nombre,int puntos)
+        {
+            MensajeEnviarPalabra enviarPalabra = new MensajeEnviarPalabra(nombre, "", 0, rta,puntos);
+            serializador.enviarMensaje(enviarPalabra);
+        }
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace misClases
         int puntos;
         //los reportes se acumulan por partida 
         int reportes = 0 ;
-
+        object _lockPuntos = new object();
 
         public void reiniciarReportes()
         {
@@ -30,28 +30,15 @@ namespace misClases
 
         public string User
         {
-            get
-            {
-                return user;
-            }
-
-            set
-            {
-                user = value;
-            }
+            get{return user;}
+            set{user = value;}
         }
 
         public int Puntos
         {
-            get
-            {
-                return puntos;
-            }
-
-            set
-            {
-                puntos = value;
-            }
+            get { lock (_lockPuntos) { return puntos; }
+        }
+            set{ lock (_lockPuntos) { puntos = value; } }
         }
     }
 }
