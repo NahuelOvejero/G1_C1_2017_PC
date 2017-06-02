@@ -44,7 +44,7 @@
     <Compile Include="MensajeDibujarPuntos.cs" />
     <Compile Include="MensajeEntrarSala.cs" />
     <Compile Include="MensajeGanador.cs" />
-    <Compile Include="MensajeIntentarLogin.cs" />
+    <Compile Include="MensajeLogin.cs" />
     <Compile Include="MensajeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using misClases;
 namespace SN
 {
    
@@ -38,8 +39,8 @@ namespace SN
         {
             lblPalabra.Text = comunicacion.PalabraDesignada;
             lblPalabra.Text = lblPalabra.Text.ToUpper();
-            prueba = new frmPrueba(comunicacion,this);
-            prueba.Show();
+           // prueba = new frmPrueba(comunicacion,this);
+           // prueba.Show();
 
             timer1.Enabled = true;
         }

@@ -129,6 +129,10 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mensajes\Mensajes.csproj">
+      <Project>{9c1e3068-6f74-4a3a-8cef-cd743b582e20}</Project>
+      <Name>Mensajes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\misClases\misClases.csproj">
       <Project>{7258f4fb-2bf1-47b2-8879-3ad881a00760}</Project>
       <Name>misClases</Name>

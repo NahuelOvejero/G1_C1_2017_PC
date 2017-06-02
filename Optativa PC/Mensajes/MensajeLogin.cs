@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Mensajes
 {
-    public class MensajeIntentarLogin:MensajeBase
+    public class MensajeLogin:MensajeBase
     {
         int sala;
         bool conectado;
         string mensaje;
-        public MensajeIntentarLogin(string emisor, string receptor, int sala) : base(emisor, receptor, sala)
+        public MensajeLogin(string emisor, string receptor, int sala) : base(emisor, receptor, sala)
         {
             base.TipoMensaje = this.GetType().Name;
             this.sala = sala;

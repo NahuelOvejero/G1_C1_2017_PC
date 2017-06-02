@@ -7,31 +7,40 @@ using Newtonsoft.Json;
 using Mensajes;
 namespace misClases
 {
+    public delegate void delRec(MensajeBase msg);
+    public delegate void delEnv(string strJSON);
     public class Serializador
     {
-        MiConBase conBase;
-        clsComunicacion comunicacion;
-        public Serializador(clsComunicacion comunicacion)
-        {
-            conBase = new MiConBase(this);
-            this.comunicacion = comunicacion;
-        }
        
+        public Serializador()
+        {
+            
+        }
 
-        public delegate void RMensaje(string strJSON);
+    
         //una cola de string para deserializar
-        public event RMensaje recibir;
+        public event delEnv Enviar;
+        public event delRec Recibir;
         public void recibirMensaje(string mensaje) {
             MensajeBase mb = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
             switch (mb.TipoMensaje)
             {
-                case "MensajeIntentarLogin" : comunicacion.intentarLogeo((MensajeIntentarLogin)mb);break;
-            
+                case "MensajeLogin":
+                    {
+                        MensajeLogin mL= JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                        if (Recibir != null)
+                            Recibir(mL);
+                        ; break;
+                    }
             }
+           
         }
+ 
         public void enviarMensaje(MensajeBase msg) {
             string mensaje = JsonConvert.SerializeObject(msg);
-            conBase.enviar(mensaje);
+            if (Enviar != null) {
+                Enviar(mensaje);
+            }
         }
 
      

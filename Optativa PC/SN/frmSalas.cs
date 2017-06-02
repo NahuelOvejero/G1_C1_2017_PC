@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using misClases;
 namespace SN
 {
     public partial class frmSalas : Form

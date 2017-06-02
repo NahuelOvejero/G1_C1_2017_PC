@@ -21,6 +21,7 @@ namespace misClases
         public  MiConBase(Serializador serializador)
         {
             this.serializador = serializador;
+            serializador.Enviar +=enviar;
             try
             {
                 client = new TcpClient("localhost", port);
@@ -32,18 +33,16 @@ namespace misClases
         }
         public void read()
         {
-            string e=reader.ReadLine();
-            
+            while (true)
+            {
+                string e = reader.ReadLine();
+                serializador.recibirMensaje(e);
+            }
         }
-
-
-
-        public delegate void llegomsj(string j);
-        public event llegomsj mrecibido;
-
         public void enviar(string msg)
         {
-            writer.WriteLine(msg);            
+            try { writer.WriteLine(msg); }
+            catch (NullReferenceException e) { }            
         }
     }
 }

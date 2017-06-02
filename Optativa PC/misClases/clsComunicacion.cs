@@ -6,18 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Mensajes;
 using misClases;
-
+using System.Threading;
 namespace misClases
 {
     public class clsComunicacion:ICom
     {
         int segundos=60;
-        string mensaje;
+
         private Serializador serializador;
-        public string Mensaje
-        {
-            get { return mensaje; }
-        }
+
         public  void enviaEjes(Pen lapiz, int x1, int y1)
         {
            
@@ -45,14 +42,34 @@ namespace misClases
         }
 
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
-
+        MiConBase ConBase;
         public clsComunicacion()
         {
             Random r = new Random();
             int i = r.Next(0, palabras.Count());
             palabraDesignada = palabras[i];
-            serializador = new Serializador(this);
-      
+            serializador = new Serializador();
+            ConBase = new MiConBase(serializador);
+            Thread tEscucha = new Thread(ConBase.read);
+            tEscucha.Start();
+            serializador.Recibir += Serializador_Recibir;
+        }
+
+        private void Serializador_Recibir(MensajeBase msg)
+        {
+            switch (msg.TipoMensaje) {
+                case "MensajeLogin": if (Logear != null)
+                    {
+                        try
+                        {
+                            MensajeLogin msgL = (MensajeLogin)msg;
+                            Logear(msgL);
+                        }
+                        catch (InvalidCastException e) { }
+                    }
+                    break;
+
+            }
         }
 
         public void enviarDibujado(Pen lapiz, Point p1, Point p2)
@@ -67,14 +84,11 @@ namespace misClases
 
         public void conectar(string nombre)
         {
-            MensajeIntentarLogin intentarLogin = new MensajeIntentarLogin(nombre, "", 0);
+            MensajeLogin intentarLogin = new MensajeLogin(nombre, "", 0);
             serializador.enviarMensaje(intentarLogin);
         }
-        public bool intentarLogeo(MensajeIntentarLogin m) {
-            mensaje = m.Mensaje;
-            return m.Conectado;
-        }
-        public delegate bool EventoLogeo(MensajeIntentarLogin m);
-        public event EventoLogeo IntentarLogear;
+   
+        public delegate void EventoLogeo(MensajeLogin m);
+        public event EventoLogeo Logear;
     }
 }

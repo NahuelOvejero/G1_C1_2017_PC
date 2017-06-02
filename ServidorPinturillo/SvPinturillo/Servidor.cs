@@ -59,7 +59,29 @@ namespace SvPinturillo
                 {
                     string mens = reader.ReadLine();
                     MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
-                    manejarMensaje(msjBase,cliente);
+                    Console.WriteLine("Es del tipo " + msjBase.TipoMensaje);
+                    try { MensajeLogin msj = (MensajeLogin)msjBase; } catch (InvalidCastException e) { }
+                    if (nombreUsuarios.Contains(msjBase.From))
+                    {
+                        MensajeLogin respuesta = new MensajeLogin("", "", 0);
+                        respuesta.Conectado = false;
+                        respuesta.Mensaje = "Nombre de usuario ya existente";
+                        string resp = JsonConvert.SerializeObject(respuesta);
+                        Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
+                        writer.WriteLine(resp);
+                    }
+                    else
+                    {
+                        MensajeLogin respuesta = new MensajeLogin("","", 0);
+                        respuesta.Conectado = true;
+                        respuesta.Mensaje = "Conectado";
+                        nombreUsuarios.Add(msjBase.From);
+                        Console.WriteLine("El usuario se ha logeado: " + msjBase.From);
+                        string resp = JsonConvert.SerializeObject(respuesta);
+                        writer.WriteLine(resp);
+                    }
+
+                    // manejarMensaje(msjBase,cliente);
                 }
                 catch (ArgumentNullException e) { }
             }
@@ -67,15 +89,15 @@ namespace SvPinturillo
         }
         private void manejarMensaje(MensajeBase msjBase,TcpClient cliente)
         {
-            if (msjBase.TipoMensaje == "MensajeIntentarLogin")
+            if (msjBase.TipoMensaje == "MensajeLogin")
             {
                 Console.WriteLine("Es del tipo "+ msjBase.TipoMensaje);
-                MensajeIntentarLogin msj = (MensajeIntentarLogin)msjBase;
+                MensajeLogin msj = (MensajeLogin)msjBase;
                 if (nombreUsuarios.Contains(msjBase.From))
                 {
-                    MensajeIntentarLogin respuesta = new MensajeIntentarLogin("", "", "No se pudo logear, el nombre ingresado ya está en uso", 0, "");
+                    MensajeLogin respuesta = new MensajeLogin("","",0);
                     respuesta.Conectado = false;
-                    string res=
+                    respuesta.Mensaje = "Nombre de usuario ya existente";
                 }
             }
             else if (msjBase.TipoMensaje == "MensajeDibujarPuntos")
