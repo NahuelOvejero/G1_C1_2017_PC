@@ -32,6 +32,13 @@ namespace misClases
                             Recibir(mL);
                         ; break;
                     }
+                case "EntraSala":
+                    {
+                        MensajeLogin mL = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                        if (Recibir != null)
+                            Recibir(mL);
+                        ; break;
+                    }
             }
            
         }
