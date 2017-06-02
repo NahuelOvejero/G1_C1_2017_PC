@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using System.IO;
 using Newtonsoft.Json;
 using Mensajes;
+using System.Net;
+
 namespace misClases
 {
     public class MiConBase
@@ -24,7 +26,8 @@ namespace misClases
             serializador.Enviar +=enviar;
             try
             {
-                client = new TcpClient("localhost", port);
+       
+                client = new TcpClient("192.168.101.245", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream) { AutoFlush = true };

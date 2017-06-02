@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mensajes
 {
-    class MensajeGanador : MensajeBase
+    public class MensajeGanador : MensajeBase
     {
 
 

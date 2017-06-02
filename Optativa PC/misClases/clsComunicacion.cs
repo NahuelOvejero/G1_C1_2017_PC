@@ -43,8 +43,7 @@ namespace misClases
             get { return palabraDesignada; }
         }
 
-        string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
-        MiConBase ConBase;
+       MiConBase ConBase;
         public clsComunicacion()
         {
             Random r = new Random();
@@ -106,10 +105,7 @@ namespace misClases
             serializador.enviarMensaje(dibPuntos);
         }
 
-        public bool corroborar(string palabraEnviada)
-        {
-            return palabraDesignada.ToUpper() == palabraEnviada.ToUpper();        
-        }
+
 
         #region enviarMensajes
         public void conectar(string nombre)

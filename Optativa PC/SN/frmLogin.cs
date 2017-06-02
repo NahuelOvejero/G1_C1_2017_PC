@@ -50,7 +50,7 @@ namespace SN
                 int i = WaitHandle.WaitAny(new WaitHandle[] {_ARELogeo,_ARENoLogeo },10000);
                 if (i == 0)
                 {
-                    MessageBox.Show("Logeado", "logeado");
+                     MessageBox.Show("Logeado", "logeado");
                     salas = new frmSalas(usuario);
                     salas.Show();
                 }

@@ -9,27 +9,35 @@ using System.Net;
 using System.Net.Sockets;
 using Mensajes;
 using Newtonsoft.Json;
+
 namespace SvPinturillo
 {
     public class Servidor
     {
-        
-        
+
+
         int port = 8999;
         IPAddress localAddr = IPAddress.Parse("127.0.0.1");
         TcpListener server;
         TcpClient client;
         private object _ListaLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
+        string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
+        string palabraDesignada;
+
+
+
+ 
+
         public Servidor()
         {
             server = new TcpListener(localAddr, port);
         }
         public void start()
         {
-            
+
             server.Start();
-           Console.WriteLine("Servidor iniciado");    
+            Console.WriteLine("Servidor iniciado");
             while (true)
             {
                 client = server.AcceptTcpClient();
@@ -58,47 +66,47 @@ namespace SvPinturillo
         /*
          TCP Client se lo paso a una clase que maneja con ID y guardar en una lista
          */
-       /* private void atender(object tcpClient)
-        {
-            Console.WriteLine("Atendiendo al cliente");
-            TcpClient cliente = (TcpClient)tcpClient;
-            NetworkStream stream = cliente.GetStream();
-            StreamWriter writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
-            StreamReader reader = new StreamReader(stream, Encoding.ASCII);
-            while (cliente.Connected)
-            {
-                try
-                {
-                    string mens = reader.ReadLine();
-                    MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
-                    Console.WriteLine("Es del tipo " + msjBase.TipoMensaje);
-                    try { MensajeLogin msj = (MensajeLogin)msjBase; } catch (InvalidCastException e) { }
-                    if (nombreUsuarios.Contains(msjBase.From))
-                    {
-                        MensajeLogin respuesta = new MensajeLogin("", "", 0);
-                        respuesta.Conectado = false;
-                        respuesta.Mensaje = "Nombre de usuario ya existente";
-                        string resp = JsonConvert.SerializeObject(respuesta);
-                        Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
-                        writer.WriteLine(resp);
-                    }
-                    else
-                    {
-                        MensajeLogin respuesta = new MensajeLogin("","", 0);
-                        respuesta.Conectado = true;
-                        respuesta.Mensaje = "Conectado";
-                        nombreUsuarios.Add(msjBase.From);
-                        Console.WriteLine("El usuario se ha logeado: " + msjBase.From);
-                        string resp = JsonConvert.SerializeObject(respuesta);
-                        writer.WriteLine(resp);
-                    }
+        /* private void atender(object tcpClient)
+         {
+             Console.WriteLine("Atendiendo al cliente");
+             TcpClient cliente = (TcpClient)tcpClient;
+             NetworkStream stream = cliente.GetStream();
+             StreamWriter writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
+             StreamReader reader = new StreamReader(stream, Encoding.ASCII);
+             while (cliente.Connected)
+             {
+                 try
+                 {
+                     string mens = reader.ReadLine();
+                     MensajeBase msjBase = JsonConvert.DeserializeObject<MensajeBase>(mens);
+                     Console.WriteLine("Es del tipo " + msjBase.TipoMensaje);
+                     try { MensajeLogin msj = (MensajeLogin)msjBase; } catch (InvalidCastException e) { }
+                     if (nombreUsuarios.Contains(msjBase.From))
+                     {
+                         MensajeLogin respuesta = new MensajeLogin("", "", 0);
+                         respuesta.Conectado = false;
+                         respuesta.Mensaje = "Nombre de usuario ya existente";
+                         string resp = JsonConvert.SerializeObject(respuesta);
+                         Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
+                         writer.WriteLine(resp);
+                     }
+                     else
+                     {
+                         MensajeLogin respuesta = new MensajeLogin("","", 0);
+                         respuesta.Conectado = true;
+                         respuesta.Mensaje = "Conectado";
+                         nombreUsuarios.Add(msjBase.From);
+                         Console.WriteLine("El usuario se ha logeado: " + msjBase.From);
+                         string resp = JsonConvert.SerializeObject(respuesta);
+                         writer.WriteLine(resp);
+                     }
 
-                    // manejarMensaje(msjBase,cliente);
-                }
-                catch (ArgumentNullException e) { }
-            }
-           
-        }*/
+                     // manejarMensaje(msjBase,cliente);
+                 }
+                 catch (ArgumentNullException e) { }
+             }
+
+         }*/
         /*  private void manejarMensaje(MensajeBase msjBase,TcpClient cliente)
           {
               if (msjBase.TipoMensaje == "MensajeLogin")
@@ -120,7 +128,8 @@ namespace SvPinturillo
                   Console.WriteLine("Es del tipo "+msjBase.TipoMensaje);
               }          
           }*/
-        public void autenticar(object client) {
+        public void autenticar(object client)
+        {
             TcpClient clienteAutenticando = (TcpClient)client;
             bool agregado = false;
             NetworkStream stream = clienteAutenticando.GetStream();
@@ -139,7 +148,10 @@ namespace SvPinturillo
                     respuesta.Mensaje = "Conectado";
                     lock (_ListaLocker)
                     {
-                        listaClientes.Add(new Cliente(clienteAutenticando, nombre));
+                        Cliente c = new Cliente(clienteAutenticando, nombre);
+                        c.Recibir += C_Recibir;
+                        listaClientes.Add(c);
+
                     }
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
                     string resp = JsonConvert.SerializeObject(respuesta);
@@ -157,6 +169,105 @@ namespace SvPinturillo
                 }
             }
         }
+
+        private void C_Recibir(MensajeBase msg)
+        {
+            //si es para el servidor:
+            if (msg.To == "")
+            {
+               
+                switch (msg.TipoMensaje)
+                {
+                    case "MensajeEnviarPalabra" :
+                        MensajeEnviarPalabra mj = (MensajeEnviarPalabra) msg;
+
+                        if (corroborar(mj.Palabra)) {
+                            //filtrar(mj.From).enviar();
+                        }
+                        else {
+                           // filtrar(mj.From).enviar();
+                        }
+                        break;
+
+                    case "MensajeDibujandoPuntos":
+                        enviarTodos(msg, msg.From);
+                        break;
+
+                    case "MensajeGanador":
+                        msg = (MensajeGanador)msg;
+                        break;
+            
+                    default:
+
+                        break;
+                }
+            }
+            #region msg todos o server
+
+            //si el msj es para todos:
+            else if (msg.To == "*")
+            {
+                lock (_ListaLocker)
+                {
+                    foreach (Cliente c in listaClientes)
+                    {
+                        c.enviar(msg);
+                    }
+                }
+            }
+            // si no es para el servidor:
+            else
+            {
+                if (filtrar(msg.To) != null) { 
+                    filtrar(msg.To).enviar(msg);
+                }
+            }
+            #endregion
+        }
+
+
+
+        /*
+
+            la funcion filtrar nos identifica un Cliente dentro de la lista cliente, y lo retorna.
+            Si el id cliente no esta en la lista, o no es encontrado, devuelve null.
+
+        */
+        private Cliente filtrar(string id) {
+            lock (_ListaLocker)
+            {
+                foreach (Cliente c in listaClientes)
+                {
+                    if (c.Id == id)
+                    {
+                        return c;
+                    }
+                }
+            }
+            return null;
+        }
+
+        //enviar todos manda un msj a TODOS los clientes
+        //excepto quien lo origina
+        private void enviarTodos(MensajeBase mb,string evitar) {
+            lock (_ListaLocker)
+            {
+                foreach (Cliente c in listaClientes)
+                {
+                    if (c.Id != evitar)
+                    {
+                        c.enviar(mb);
+                    }
+                }
+            }
+        }
+
+
+        public bool corroborar(string palabraEnviada)
+        {
+            return palabraDesignada.ToUpper() == palabraEnviada.ToUpper();
+        }
+
 
     }
 }
