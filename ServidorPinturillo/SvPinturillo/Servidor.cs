@@ -20,14 +20,18 @@ namespace SvPinturillo
         IPAddress localAddr = IPAddress.Parse("192.168.1.211");//127.0.0.1");
         TcpListener server;
         TcpClient client;
-        private object _ListaLocker = new object(),_banderLocker=new object();
+        private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
         string palabraDesignada;
 
+        string[] orden = new string[4];
+        int conectados = 0;
+        int rondaActual = 0;
+        int turnoActual = 0;
 
 
- 
+
 
         public Servidor()
         {
@@ -39,10 +43,10 @@ namespace SvPinturillo
             server.Start();
             Console.WriteLine("Servidor iniciado");
             while (true)
-            {           
+            {
                 TcpClient client = server.AcceptTcpClient();
                 Thread Hiloautenticar = new Thread(autenticar);
-                Hiloautenticar.Start(client);          
+                Hiloautenticar.Start(client);
             }
         }
 
@@ -53,7 +57,7 @@ namespace SvPinturillo
             {
                 foreach (Cliente c in listaClientes)
                 {
-                    if (c.Id.CompareTo(nombre)==0)
+                    if (c.Id.CompareTo(nombre) == 0)
                     {
                         libre = false;
                         break;
@@ -62,6 +66,9 @@ namespace SvPinturillo
             }
             return libre;
         }
+
+
+        #region comentarios
         //los usuarios deben recibir los mensajes como eventos del lado del cliente
         /*
          TCP Client se lo paso a una clase que maneja con ID y guardar en una lista
@@ -128,6 +135,9 @@ namespace SvPinturillo
                   Console.WriteLine("Es del tipo "+msjBase.TipoMensaje);
               }          
           }*/
+
+        #endregion
+
         public void autenticar(object client)
         {
             TcpClient clienteAutenticando = (TcpClient)client;
@@ -146,10 +156,17 @@ namespace SvPinturillo
                     respuesta.Conectado = true;
                     Cliente c = new Cliente(clienteAutenticando, nombre);
                     c.Recibir += C_Recibir;
+
                     lock (_ListaLocker)
-                    {          
+                    {
+                        //despues verificar sala, de momento es prueba
+                        //if(conectados > 4) mandar mensaje de "server lleno"
+                        //o poner al usuario en lista de espera
                         listaClientes.Add(c);
+                        orden[conectados] = c.Id;
+                        conectados++;
                     }
+
                     Thread HiloAtender = new Thread(c.atender);
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
                     string resp = JsonConvert.SerializeObject(respuesta);
@@ -248,6 +265,8 @@ namespace SvPinturillo
 
         //enviar todos manda un msj a TODOS los clientes
         //excepto quien lo origina
+
+            //puede modificarse al enviar todos los que pertenezcan en una sala cuando sea multipartida.
         private void enviarTodos(MensajeBase mb,string evitar) {
             lock (_ListaLocker)
             {
@@ -265,6 +284,37 @@ namespace SvPinturillo
         public bool corroborar(string palabraEnviada)
         {
             return palabraDesignada.ToUpper() == palabraEnviada.ToUpper();
+        }
+
+        //habria que verificar cuando hay un ganador o se acabe el tiempo, que se ejecute el avanzar turno:
+        //a la vez verifica la ronda actual.
+        //suponiendo que el juego tendra 3 rondas donde dibujara una vez uno de los cuatro participantes.
+        public void avanzarTurno() {
+            turnoActual++;
+            if (turnoActual > 3) {
+                rondaActual++;
+            }
+            if (rondaActual > 3) {
+                   //TERMINAR PARTIDA Y DAR GANADOR GLOBAL.
+            }
+        }
+
+        public void empezarPartida(MensajeBase mb)
+        {
+            //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
+            enviarTodos(mb, orden[turnoActual]);
+            //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
+
+            if (filtrar(orden[turnoActual]) != null) {
+                //ENVIAR MENSAJE TOCA DIBUJAR
+                filtrar(orden[turnoActual]).enviar(mb);
+            }
+        }
+
+        public void reiniciarPartida()
+        {
+            this.rondaActual = 0;
+            this.turnoActual = 0;
         }
 
 
