@@ -35,6 +35,8 @@ namespace misClases
                     mb = JsonConvert.DeserializeObject<MensajeEnviarPalabra>(mensaje);break;
                 case "MensajeIniciarPartida":
                     mb = JsonConvert.DeserializeObject<MensajeIniciarPartida>(mensaje); break;
+                case "MensajedibujarPuntos":
+                    mb = JsonConvert.DeserializeObject<MensajeDibujarPuntos>(mensaje); break;
             }
             if (Recibir != null)
                 Recibir(mb);
