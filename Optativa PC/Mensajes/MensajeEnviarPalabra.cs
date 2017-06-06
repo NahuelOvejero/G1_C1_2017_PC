@@ -13,6 +13,7 @@ namespace Mensajes
         int puntos;
         public MensajeEnviarPalabra(string from, string to, int sala,string palabra,int puntos) : base(from, to, sala)
         {
+            base.TipoMensaje = this.GetType().Name;
             this.palabra = palabra;
             this.puntos = puntos ;
         }

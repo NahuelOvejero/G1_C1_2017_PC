@@ -43,7 +43,8 @@ namespace SN
         {
             Color colorcito = Color.FromArgb(m.ColorRGB);
             Pen lap = new Pen(colorcito,m.Grosor);
-            pnlDibujo.Invoke((Action)(()=> grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
+            
+            pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
         }
 
         private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
@@ -55,7 +56,7 @@ namespace SN
             }
             else
             {
-                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(usuario.User + ": "+m.Palabra); }));
+                lbPalabrasIncorrectas.Invoke((Action)(() => { lbPalabrasIncorrectas.Items.Add(m.From + ": "+m.Palabra); }));
             }
         }
 
@@ -89,10 +90,11 @@ namespace SN
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
             if (btnDown)
-            {       
-                grafico.DrawLine(lapiz, e.X, e.Y, e.X+1 , e.Y+1);
+            {
+                int x = e.X, y = e.Y,grosor=(int)lapiz.Width,colorRgb=lapiz.Color.ToArgb();
+                grafico.DrawLine(lapiz, x, y, x+1 , y+1);
                 // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
-                Task.Run(()=>comunicacion.enviarDibujado(lapiz,e.X,e.Y, usuario.User));
+                Task.Run(()=>comunicacion.enviarDibujado(grosor,colorRgb,x,y, usuario.User));
                
             }
         }
@@ -126,11 +128,12 @@ namespace SN
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {
+            string rta = tbPalabra.Text;
             if (((int)e.KeyChar == (int)Keys.Enter))
             {
-                if ((tbPalabra.Text != "") && (tbPalabra.Text != null))
+                if ((rta != "") && (rta != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(tbPalabra.Text, usuario.User,37));
+                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,37));
                 }
                 tbPalabra.Clear();
             }
@@ -138,3 +141,4 @@ namespace SN
 
     }
 }
+

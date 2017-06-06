@@ -47,7 +47,6 @@
     <Compile Include="MensajeGanador.cs" />
     <Compile Include="MensajeLogin.cs" />
     <Compile Include="MensajeBase.cs" />
-    <Compile Include="MensajeTocaAdivinar.cs" />
     <Compile Include="MensajeTocaDibujar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
