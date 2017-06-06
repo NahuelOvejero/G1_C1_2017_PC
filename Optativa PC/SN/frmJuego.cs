@@ -17,7 +17,7 @@ namespace SN
     {
         private bool btnDown;
         Pen lapiz;
-        Graphics grafico,grafsecundario;
+        Graphics grafico,grafico2;
         clsUsuario usuario;
         //frmPrueba prueba;
         clsComunicacion comunicacion;
@@ -30,8 +30,11 @@ namespace SN
             comunicacion = c;
             comunicacion.RespuestaPalabraEnviada += Comunicacion_RespuestaPalabraEnviada;
             comunicacion.Dibujar += Comunicacion_Dibujar;
+            comunicacion.TocaDibujar += Comunicacion_TocaDibujar;
+            comunicacion.IniciarPartida += Comunicacion_IniciarPartida;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             grafico = pnlDibujo.CreateGraphics();
+            grafico2 = pnlAdivina.CreateGraphics();
           //  grafsecundario = pnlSecundarioDIbujar.CreateGraphics();
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
@@ -39,13 +42,43 @@ namespace SN
 
         }
 
+        int cont;
+
+        private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
+        {
+            label2.Text = "Empezo Partida";
+            cont = 60;
+            timer1.Start();
+        }
+
+        private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
+        {
+            if(usuario.User == m.Dibujante)
+            {
+                groupBox1.Visible = true;
+                lblPalabra.Text = m.PalabraAdivinar;
+                pnlDibujo.Visible = true;
+                pnlAdivina.Visible = false;
+            }
+            else
+            {
+                groupBox1.Visible = false;
+                lblPalabra.Text = m.PalabraAdivinar;
+                pnlDibujo.Visible = false;
+                pnlAdivina.Visible = true;
+            }
+        }
+
         private void Comunicacion_Dibujar(MensajeDibujarPuntos m)
         {
             Color colorcito = Color.FromArgb(m.ColorRGB);
             Pen lap = new Pen(colorcito,m.Grosor);
             
-            pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
+            //pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
+            pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
         }
+
+
 
         private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
         {
@@ -62,6 +95,7 @@ namespace SN
 
         private void frmJuego_Load(object sender, EventArgs e)
         {
+
             lblPalabra.Text = comunicacion.PalabraDesignada;
             lblPalabra.Text = lblPalabra.Text.ToUpper();
            // prueba = new frmPrueba(comunicacion,this);
@@ -110,21 +144,20 @@ namespace SN
         {
             lapiz.Width = (int)nudWidth.Value;
         }
-        int cont = 60;
 
         private void lbUsuarios_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        /*  private void timer1_Tick(object sender, EventArgs e)
- {
-     if (cont != 0)
-     {
-         cont--;
-         lblContador.Text = cont.ToString();
-     }
- }*/
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (cont != 0)
+            {
+                cont--;
+                lblContador.Text = cont.ToString();
+            }
+        }
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -133,7 +166,7 @@ namespace SN
             {
                 if ((rta != "") && (rta != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,37));
+                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,cont));
                 }
                 tbPalabra.Clear();
             }

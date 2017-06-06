@@ -23,6 +23,10 @@ namespace misClases
         public event DelDibujar Dibujar;
         public delegate void DelRespPalabra(MensajeEnviarPalabra m);
         public event DelRespPalabra RespuestaPalabraEnviada;
+        public delegate void DelIniciarPartida(MensajeIniciarPartida m);
+        public event DelIniciarPartida IniciarPartida;
+        public delegate void DelTocaDibujar(MensajeTocaDibujar m);
+        public event DelTocaDibujar TocaDibujar;
         #endregion
 
         public void contador()
@@ -93,9 +97,33 @@ namespace misClases
                         RespuestaPalabraEnviada(msgEnvPal);
                     }
                     break;
+                case "MensajeIniciarPartida":
+                    if (IniciarPartida != null)
+                    {
+                        try
+                        {
+                            MensajeIniciarPartida msgEn = (MensajeIniciarPartida)msg;
+                            IniciarPartida(msgEn);
+                        }
+                        catch (InvalidCastException e) { }
+                    }
+                    break;
+                case "MensajeTocaDibujar":
+                    if (TocaDibujar != null)
+                    {
+                        try
+                        {
+                            MensajeTocaDibujar msgEn = (MensajeTocaDibujar)msg;
+                            TocaDibujar(msgEn);
+                        }
+                        catch (InvalidCastException e) { }
+                    }
+                    break;
 
             }
         }
+
+
 
         public void enviarDibujado(int grosor,int colorRGB, int x,int y,string nombre)
         {
@@ -123,6 +151,7 @@ namespace misClases
             MensajeEnviarPalabra enviarPalabra = new MensajeEnviarPalabra(nombre, "", 0, rta,puntos);
             serializador.enviarMensaje(enviarPalabra);
         }
+        
         #endregion
     }
 }
