@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using Mensajes;
 using Newtonsoft.Json;
 
+
 namespace SvPinturillo
 {
     public class Servidor
@@ -17,7 +18,7 @@ namespace SvPinturillo
 
 
         int port = 8999;
-        IPAddress localAddr = IPAddress.Parse("192.168.1.211");//127.0.0.1");
+        IPAddress localAddr = IPAddress.Parse("127.0.0.1");//127.0.0.1");
         TcpListener server;
         TcpClient client;
         private object _ListaLocker = new object(), _banderLocker = new object();
@@ -66,7 +67,7 @@ namespace SvPinturillo
             }
             return libre;
         }
-
+        
 
         #region comentarios
         //los usuarios deben recibir los mensajes como eventos del lado del cliente
@@ -301,13 +302,17 @@ namespace SvPinturillo
 
         public void empezarPartida(MensajeBase mb)
         {
-            //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
-            enviarTodos(mb, orden[turnoActual]);
-            //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
+            if (conectados < 1)
+            {
+                //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
+                enviarTodos(mb, orden[turnoActual]);
+                //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
 
-            if (filtrar(orden[turnoActual]) != null) {
-                //ENVIAR MENSAJE TOCA DIBUJAR
-                filtrar(orden[turnoActual]).enviar(mb);
+                if (filtrar(orden[turnoActual]) != null)
+                {
+                    //ENVIAR MENSAJE TOCA DIBUJAR
+                    filtrar(orden[turnoActual]).enviar(mb);
+                }
             }
         }
 
