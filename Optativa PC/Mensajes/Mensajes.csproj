@@ -45,6 +45,7 @@
     <Compile Include="MensajeEntrarSala.cs" />
     <Compile Include="MensajeEnviarPalabra.cs" />
     <Compile Include="MensajeGanador.cs" />
+    <Compile Include="MensajeIniciarPartida.cs" />
     <Compile Include="MensajeLogin.cs" />
     <Compile Include="MensajeBase.cs" />
     <Compile Include="MensajeTocaDibujar.cs" />

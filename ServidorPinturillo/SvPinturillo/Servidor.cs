@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using Mensajes;
 using Newtonsoft.Json;
 
+
 namespace SvPinturillo
 {
     public class Servidor
@@ -65,7 +66,7 @@ namespace SvPinturillo
             }
             return libre;
         }
-
+        
 
         #region comentarios
         //los usuarios deben recibir los mensajes como eventos del lado del cliente
@@ -331,13 +332,17 @@ namespace SvPinturillo
 
         public void empezarPartida(MensajeBase mb)
         {
-            //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
-            enviarTodos(mb, orden[turnoActual]);
-            //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
+            if (conectados < 1)
+            {
+                //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
+                enviarTodos(mb, orden[turnoActual]);
+                //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
 
-            if (filtrar(orden[turnoActual]) != null) {
-                //ENVIAR MENSAJE TOCA DIBUJAR
-                filtrar(orden[turnoActual]).enviar(mb);
+                if (filtrar(orden[turnoActual]) != null)
+                {
+                    //ENVIAR MENSAJE TOCA DIBUJAR
+                    filtrar(orden[turnoActual]).enviar(mb);
+                }
             }
         }
 
