@@ -84,8 +84,15 @@ namespace SN
         {
             if (m.Correcta)
             {
+                if (m.To == usuario.User)
+                {
                 usuario.Puntos += m.Puntos;
                 MessageBox.Show("Ganaste!");
+            }
+            else
+            {
+                    MessageBox.Show("El ganador es" + m.To + "!");
+                }
             }
             else
             {
@@ -151,12 +158,12 @@ namespace SN
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (cont != 0)
-            {
-                cont--;
-                lblContador.Text = cont.ToString();
-            }
+ {
+     if (cont != 0)
+     {
+         cont--;
+         lblContador.Text = cont.ToString();
+     }
         }
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
@@ -174,3 +181,4 @@ namespace SN
 
     }
 }
+

@@ -24,9 +24,9 @@ namespace SvPinturillo
         private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
-        string palabraDesignada;
-
-        string[] orden = new string[4];
+        string palabraDesignada="perro";
+        List<string> orden = new List<string>();
+       
         int conectados = 0;
         int rondaActual = 0;
         int turnoActual = 0;
@@ -40,7 +40,6 @@ namespace SvPinturillo
         }
         public void start()
         {
-
             server.Start();
             Console.WriteLine("Servidor iniciado");
             while (true)
@@ -157,19 +156,20 @@ namespace SvPinturillo
                     respuesta.Conectado = true;
                     Cliente c = new Cliente(clienteAutenticando, nombre);
                     c.Recibir += C_Recibir;
-
+                    c.Desconectar += C_Desconectar;
                     lock (_ListaLocker)
                     {
                         //despues verificar sala, de momento es prueba
                         //if(conectados > 4) mandar mensaje de "server lleno"
                         //o poner al usuario en lista de espera
                         listaClientes.Add(c);
-                        orden[conectados] = c.Id;
+                        orden.Add(c.Id);
                         conectados++;
                     }
 
                     Thread HiloAtender = new Thread(c.atender);
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
+                    Console.WriteLine("Total conectados " + listaClientes.Count);
                     string resp = JsonConvert.SerializeObject(respuesta);
                     writer.WriteLine(resp);
                     HiloAtender.Start();
@@ -187,6 +187,19 @@ namespace SvPinturillo
             }
         }
 
+        private void C_Desconectar(string id)
+        {
+            int i=listaClientes.IndexOf(filtrar(id));
+            lock (_ListaLocker)
+            {   if(i>-1)
+                listaClientes.RemoveAt(i);
+                orden.RemoveAt(orden.IndexOf(id));
+                conectados--;
+            }
+
+            Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
+        }
+
         private void C_Recibir(MensajeBase msg)
         {
             //si es para el servidor:
@@ -197,11 +210,21 @@ namespace SvPinturillo
                 {
                     case "MensajeEnviarPalabra" :
                         MensajeEnviarPalabra mj = (MensajeEnviarPalabra) msg;
-
+                        Cliente c = filtrar(mj.From);
+                        
                         if (corroborar(mj.Palabra)) {
-                            //filtrar(mj.From).enviar();
+                           
+                            if (c != null) {
+                                mj.To = mj.From;
+                                mj.From = "";
+                                mj.Correcta = true; 
+                                enviarTodos(mj, "");
+                            }
+                            empezarPartida();
                         }
                         else {
+                            
+                            enviarTodos(mj, "");
                            // filtrar(mj.From).enviar();
                         }
                         break;
@@ -213,9 +236,13 @@ namespace SvPinturillo
                     case "MensajeGanador":
                         msg = (MensajeGanador)msg;
                         break;
-            
-                    default:
 
+                    case "MensajeEntrarSala":
+                   
+                        if (conectados > 1)
+                        {
+                            empezarPartida();
+                        }
                         break;
                 }
             }
@@ -294,26 +321,25 @@ namespace SvPinturillo
             turnoActual++;
             if (turnoActual > 3) {
                 rondaActual++;
+                turnoActual = 0;
             }
             if (rondaActual > 3) {
                    //TERMINAR PARTIDA Y DAR GANADOR GLOBAL.
             }
         }
 
-        public void empezarPartida(MensajeBase mb)
+        public void empezarPartida()
         {
-            if (conectados < 1)
-            {
-                //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
-                enviarTodos(mb, orden[turnoActual]);
-                //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
-
-                if (filtrar(orden[turnoActual]) != null)
-                {
-                    //ENVIAR MENSAJE TOCA DIBUJAR
-                    filtrar(orden[turnoActual]).enviar(mb);
-                }
-            }
+            Random ran = new Random();
+            int i = ran.Next(0, palabras.Length - 1);
+            palabraDesignada = palabras[i];
+            MensajeTocaDibujar msjToca = new MensajeTocaDibujar("", "*", 1, orden.ElementAt<string>(turnoActual), palabraDesignada);
+            MensajeIniciarPartida iniciar = new MensajeIniciarPartida("", "*", 1);
+            //SE ENVIA A TODOS EL MENSAJE Iniciar Partida y toca dibujar
+            enviarTodos(msjToca, "");
+            enviarTodos(iniciar, "");
+            avanzarTurno();
+            //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR
         }
 
         public void reiniciarPartida()

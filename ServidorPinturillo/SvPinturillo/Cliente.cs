@@ -14,7 +14,8 @@ namespace SvPinturillo
 
 
         public event delRec Recibir;
-
+        public event delDesc Desconectar;
+        public delegate void delDesc(string id);
         TcpClient cliente;
         string id;
         NetworkStream stream;
@@ -35,12 +36,13 @@ namespace SvPinturillo
         }
         public void atender()
         {
+            string mensaje="";
             while (true)
             {
                 try
                 {
-                   
-                    string mensaje = reader.ReadLine();
+
+                    mensaje = reader.ReadLine();
                     Console.WriteLine(mensaje);
                     MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
                     switch (msj.TipoMensaje)
@@ -56,21 +58,36 @@ namespace SvPinturillo
                         case "MensajeEntrarSala":
                             msj = JsonConvert.DeserializeObject<MensajeEntrarSala>(mensaje);
                             break;
-
                         case "MensajeGanador":
                             msj = JsonConvert.DeserializeObject<MensajeGanador>(mensaje);
                             break;
-                        default:
-                            msj = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                        case "MensajeEnviarPalabra":
+                            msj = JsonConvert.DeserializeObject<MensajeEnviarPalabra>(mensaje);
                             break;
+                      
                     }
 
-                    if(Recibir != null) { 
-                           Recibir(msj);
-                        }
+                    if (Recibir != null)
+                    {
+                        Recibir(msj);
+                    }
 
                 }
-                catch (ArgumentNullException e) { }
+                catch (ArgumentNullException e) {
+                    if (mensaje == null) {
+                        if (Desconectar != null) {
+                            Desconectar(this.id);
+                            break;
+                        }
+                    }
+                }
+                catch (IOException c) {
+                    if (Desconectar != null)
+                    {
+                        Desconectar(this.id);
+                        break;
+                    }
+                }
             }
         }
 
