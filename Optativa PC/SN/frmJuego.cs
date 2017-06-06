@@ -30,6 +30,7 @@ namespace SN
             comunicacion = c;
             comunicacion.RespuestaPalabraEnviada += Comunicacion_RespuestaPalabraEnviada;
             comunicacion.Dibujar += Comunicacion_Dibujar;
+            
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             grafico = pnlDibujo.CreateGraphics();
           //  grafsecundario = pnlSecundarioDIbujar.CreateGraphics();
@@ -51,8 +52,15 @@ namespace SN
         {
             if (m.Correcta)
             {
-                usuario.Puntos += m.Puntos;
-                MessageBox.Show("Ganaste!");
+                if (m.To == usuario.User)
+                {
+                    usuario.Puntos += m.Puntos;
+                    MessageBox.Show("Ganaste!");
+                }
+                else
+                {
+                    MessageBox.Show("El ganador es" + m.To + "!");
+                }
             }
             else
             {
@@ -133,7 +141,7 @@ namespace SN
             {
                 if ((rta != "") && (rta != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,37));
+                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,37));//Modificar 37 por valor de contador
                 }
                 tbPalabra.Clear();
             }

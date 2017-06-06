@@ -21,12 +21,12 @@ namespace SvPinturillo
         IPAddress localAddr = IPAddress.Parse("127.0.0.1");//127.0.0.1");
         TcpListener server;
         TcpClient client;
-        private object _ListaLocker = new object(), _banderLocker = new object(),_contLocker=new object();
+        private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
         string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
         string palabraDesignada="perro";
-
-        string[] orden = new string[4];
+        List<string> orden = new List<string>();
+       
         int conectados = 0;
         int rondaActual = 0;
         int turnoActual = 0;
@@ -163,7 +163,7 @@ namespace SvPinturillo
                         //if(conectados > 4) mandar mensaje de "server lleno"
                         //o poner al usuario en lista de espera
                         listaClientes.Add(c);
-                        orden[conectados] = c.Id;
+                        orden.Add(c.Id);
                         conectados++;
                     }
 
@@ -193,11 +193,10 @@ namespace SvPinturillo
             lock (_ListaLocker)
             {   if(i>-1)
                 listaClientes.RemoveAt(i);
-            }
-            lock (_contLocker)
-            {
+                orden.RemoveAt(orden.IndexOf(id));
                 conectados--;
             }
+
             Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
         }
 
@@ -219,8 +218,9 @@ namespace SvPinturillo
                                 mj.To = mj.From;
                                 mj.From = "";
                                 mj.Correcta = true; 
-                                c.enviar(mj);
+                                enviarTodos(mj, "");
                             }
+                            empezarPartida();
                         }
                         else {
                             
@@ -238,13 +238,10 @@ namespace SvPinturillo
                         break;
 
                     case "MensajeEntrarSala":
-                        lock (_contLocker)
-                        {
-                            conectados++;
-                        }
+                   
                         if (conectados > 1)
                         {
-
+                            empezarPartida();
                         }
                         break;
                 }
@@ -324,26 +321,25 @@ namespace SvPinturillo
             turnoActual++;
             if (turnoActual > 3) {
                 rondaActual++;
+                turnoActual = 0;
             }
             if (rondaActual > 3) {
                    //TERMINAR PARTIDA Y DAR GANADOR GLOBAL.
             }
         }
 
-        public void empezarPartida(MensajeBase mb)
+        public void empezarPartida()
         {
-            if (conectados < 1)
-            {
-                //SE ENVIA A TODOS EL MENSAJE TOCA ADIVINAR 
-                enviarTodos(mb, orden[turnoActual]);
-                //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR:
-
-                if (filtrar(orden[turnoActual]) != null)
-                {
-                    //ENVIAR MENSAJE TOCA DIBUJAR
-                    filtrar(orden[turnoActual]).enviar(mb);
-                }
-            }
+            Random ran = new Random();
+            int i = ran.Next(0, palabras.Length - 1);
+            palabraDesignada = palabras[i];
+            MensajeTocaDibujar msjToca = new MensajeTocaDibujar("", "*", 1, orden.ElementAt<string>(turnoActual), palabraDesignada);
+            MensajeIniciarPartida iniciar = new MensajeIniciarPartida("", "*", 1);
+            //SE ENVIA A TODOS EL MENSAJE Iniciar Partida y toca dibujar
+            enviarTodos(msjToca, "");
+            enviarTodos(iniciar, "");
+            avanzarTurno();
+            //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR
         }
 
         public void reiniciarPartida()
