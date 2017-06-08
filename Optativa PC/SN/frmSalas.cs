@@ -27,7 +27,7 @@ namespace SN
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Task.Run(() => comunicacion.entrar_sala(usuario.User,"server",1,""));
+            Task.Run(() => comunicacion.entrar_sala(usuario.User,"",1,""));
 
             juego = new frmJuego(usuario,comunicacion);
             juego.Show();

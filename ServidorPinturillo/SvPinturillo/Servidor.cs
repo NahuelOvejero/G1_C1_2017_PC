@@ -243,12 +243,13 @@ namespace SvPinturillo
                         break;
 
                     case "MensajeEntrarSala":
-                   
+                        Console.WriteLine("ENTRO A LA BENDITA SALA");
                         if (conectados > 1)
                         {
                             empezarPartida();
                         }
                         break;
+
                 }
             }
             #region msg todos o server
@@ -324,7 +325,9 @@ namespace SvPinturillo
         //suponiendo que el juego tendra 3 rondas donde dibujara una vez uno de los cuatro participantes.
         public void avanzarTurno() {
             turnoActual++;
-            if (turnoActual > 3) {
+            //RONDA DE TESTING
+            //SOLO DOS JUGADORES 
+            if (turnoActual > 1) {
                 rondaActual++;
                 turnoActual = 0;
             }
@@ -335,10 +338,13 @@ namespace SvPinturillo
 
         public void empezarPartida()
         {
+            Console.WriteLine("Empezo la partida");
             Random ran = new Random();
             int i = ran.Next(0, palabras.Length - 1);
             palabraDesignada = palabras[i];
+            Console.WriteLine("Palabra designada " + palabraDesignada);
             MensajeTocaDibujar msjToca = new MensajeTocaDibujar("", "*", 1, orden.ElementAt<string>(turnoActual), palabraDesignada);
+            Console.WriteLine("Turno de dibujar: " + orden.ElementAt<string>(turnoActual));
             MensajeIniciarPartida iniciar = new MensajeIniciarPartida("", "*", 1);
             //SE ENVIA A TODOS EL MENSAJE Iniciar Partida y toca dibujar
             enviarTodos(msjToca, "");

@@ -113,7 +113,7 @@ namespace misClases
                     {
                         try
                         {
-                            MensajeTocaDibujar msgEn = (MensajeTocaDibujar)msg;
+                            MensajeTocaDibujar msgEn = (MensajeTocaDibujar) msg;
                             TocaDibujar(msgEn);
                         }
                         catch (InvalidCastException e) { }

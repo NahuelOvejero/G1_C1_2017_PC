@@ -46,26 +46,54 @@ namespace SN
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
-            label2.Text = "Empezo Partida";
+            while (this.IsDisposed)
+            {
+                //espera que se crea
+            }
+
+            // a vece hay inconvenientes con las ventanas, verificar.
+            label2.Invoke((Action)(() => {
+                label2.Text = " Empezo la partida ";
+            }));
             cont = 60;
             timer1.Start();
         }
 
         private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
         {
-            if(usuario.User == m.Dibujante)
+            if (usuario.User == m.Dibujante)
             {
-                groupBox1.Visible = true;
-                lblPalabra.Text = m.PalabraAdivinar;
-                pnlDibujo.Visible = true;
-                pnlAdivina.Visible = false;
+
+                //RECORDATORIO : USAR INVOKE, YA QUE NO SE PUEDE ACCEDER DE OTRO HILO
+
+                /* lblPalabra.Text = m.PalabraAdivinar;
+                 pnlDibujo.Visible = true;
+                 pnlAdivina.Visible = false;*/
+
+
+                groupBox1.Invoke((Action)(() => { groupBox1.Visible = true; }));
+                lblPalabra.Invoke((Action)(() => { lblPalabra.Text = m.PalabraAdivinar; }));
+                pnlDibujo.Invoke((Action)(() => { pnlDibujo.Visible = true; }));
+                pnlAdivina.Invoke((Action)(() => { pnlAdivina.Visible = false; }));
+              //  tbPalabra.Invoke((Action)(() => { tbPalabra.Enabled = false; }));
+
+
             }
             else
             {
+                //IGUAL UE ARRIBA, SIEMPRE A TRAVES DE INVOKE.
+                /*
                 groupBox1.Visible = false;
                 lblPalabra.Text = m.PalabraAdivinar;
                 pnlDibujo.Visible = false;
-                pnlAdivina.Visible = true;
+                pnlAdivina.Visible = true;*/
+
+
+                groupBox1.Invoke((Action)(() => { groupBox1.Visible = false; }));
+                lblPalabra.Invoke((Action)(() => { lblPalabra.Text = m.PalabraAdivinar; }));
+                pnlDibujo.Invoke((Action)(() => { pnlDibujo.Visible = false; }));
+                pnlAdivina.Invoke((Action)(() => { pnlAdivina.Visible = true; }));
+              //  tbPalabra.Invoke((Action)(() => { tbPalabra.Enabled = true; }));
             }
         }
 
