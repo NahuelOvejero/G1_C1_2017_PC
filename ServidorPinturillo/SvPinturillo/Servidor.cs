@@ -41,6 +41,7 @@ namespace SvPinturillo
         public void start()
         {
             server.Start();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Servidor iniciado");
             while (true)
             {
@@ -168,6 +169,8 @@ namespace SvPinturillo
                     }
 
                     Thread HiloAtender = new Thread(c.atender);
+                    Console.Out.NewLine = "\r\n\r\n";
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
                     Console.WriteLine("Total conectados " + listaClientes.Count);
                     string resp = JsonConvert.SerializeObject(respuesta);
@@ -181,6 +184,7 @@ namespace SvPinturillo
                     respuesta.Conectado = false;
                     respuesta.Mensaje = "Nombre de usuario ya existente ";
                     string resp = JsonConvert.SerializeObject(respuesta);
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
                     writer.WriteLine(resp);
                 }
@@ -196,6 +200,7 @@ namespace SvPinturillo
                 orden.RemoveAt(orden.IndexOf(id));
                 conectados--;
             }
+            Console.ForegroundColor = ConsoleColor.Red;
 
             Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
         }
