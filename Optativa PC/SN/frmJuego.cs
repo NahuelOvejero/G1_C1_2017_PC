@@ -153,7 +153,8 @@ namespace SN
            // prueba = new frmPrueba(comunicacion,this);
            // prueba.Show();
 
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
+            
         }
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
@@ -197,15 +198,18 @@ namespace SN
             lapiz.Width = (int)nudWidth.Value;
         }
 
-     
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            if (cont != 0)
+            {
+                cont--;
+                lblContador.Text = cont.ToString();
+            }
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-             if (cont != 0)
-              {
-               cont--;
-              lblContador.Text = cont.ToString();
-             }
+             
         }
 
      
