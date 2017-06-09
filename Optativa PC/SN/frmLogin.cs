@@ -34,24 +34,36 @@ namespace SN
 
         }
         
-        private void btnLogin_Click(object sender, EventArgs e)
+
+        private void pbLogin_MouseHover(object sender, EventArgs e)
+        {
+            pbLogin.BackColor = Color.Green;
+        }
+
+        private void pbLogin_MouseLeave(object sender, EventArgs e)
+        {
+
+            pbLogin.BackColor = Color.Transparent;
+        }
+
+        private void pbLogin_Click(object sender, EventArgs e)
         {
             if (tbUsuario.Text.Length == 0)
             {
                 MessageBox.Show("No deje campos vacío para el ingreso", "Error");
             }
 
-            else 
+            else
             //if (tbUsuario.Text == "Usuario")
             {
                 usuario.User = tbUsuario.Text;
-                Task.Run(()=>comunicacion.conectar(usuario.User));
+                Task.Run(() => comunicacion.conectar(usuario.User));
                 //Abre el otro formulario
-                int i = WaitHandle.WaitAny(new WaitHandle[] {_ARELogeo,_ARENoLogeo },10000);
+                int i = WaitHandle.WaitAny(new WaitHandle[] { _ARELogeo, _ARENoLogeo }, 10000);
                 if (i == 0)
                 {
-                     MessageBox.Show("Logeado", "logeado");
-                    salas = new frmSalas(usuario,comunicacion);
+                    MessageBox.Show("Logeado", "logeado");
+                    salas = new frmSalas(usuario, comunicacion);
                     salas.Show();
                 }
                 else if (i == 1)
@@ -63,8 +75,6 @@ namespace SN
                     MessageBox.Show("Se agotó el tiempo de espera, vuelva a reintentarlo");
                 }
             }
-
-           
 
         }
 
