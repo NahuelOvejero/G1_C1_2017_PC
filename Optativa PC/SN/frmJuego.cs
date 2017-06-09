@@ -17,7 +17,7 @@ namespace SN
     {
 
         //recibe
-        Point antiguo;
+        Point ?antiguo;
 
         //puntos para dibujar correctamente linea intermedia
         public Point current = new Point();
@@ -46,6 +46,8 @@ namespace SN
             comunicacion.Dibujar += Comunicacion_Dibujar;
             comunicacion.TocaDibujar += Comunicacion_TocaDibujar;
             comunicacion.IniciarPartida += Comunicacion_IniciarPartida;
+            comunicacion.FinTrazo += Comunicacion_finTrazo;
+
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             lapiz.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
@@ -115,7 +117,7 @@ namespace SN
                 Pen lap = new Pen(colorcito, m.Grosor);
                 lap.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
                //pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
-                pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, antiguo.X, antiguo.Y, m.CordX, m.CordY)));
+                pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, ((Point)(antiguo)).X, ((Point)(antiguo)).Y, m.CordX, m.CordY)));
                 antiguo = new Point(m.CordX, m.CordY);
             }
             else {
@@ -242,6 +244,11 @@ namespace SN
                 tbPalabra.Clear();
             }
         }
+
+        public void Comunicacion_finTrazo(MensajeFinTrazo m) {
+            antiguo = null;
+        }
+
 
     }
 }

@@ -27,6 +27,9 @@ namespace misClases
         public event DelIniciarPartida IniciarPartida;
         public delegate void DelTocaDibujar(MensajeTocaDibujar m);
         public event DelTocaDibujar TocaDibujar;
+        public delegate void DelMensajeFinTrazo(MensajeFinTrazo m);
+        public event DelMensajeFinTrazo FinTrazo;
+
         #endregion
 
         public void contador()
@@ -61,8 +64,10 @@ namespace misClases
 
         private void Serializador_Recibir(MensajeBase msg)
         {
-            switch (msg.TipoMensaje) {
-                case "MensajeLogin": if (Logear != null)
+            switch (msg.TipoMensaje)
+            {
+                case "MensajeLogin":
+                    if (Logear != null)
                     {
                         try
                         {
@@ -86,7 +91,8 @@ namespace misClases
                     break;
                 case "MensajeDibujarPuntos":
                     MensajeDibujarPuntos msgDibPun = (MensajeDibujarPuntos)msg;
-                    if (Dibujar != null) {
+                    if (Dibujar != null)
+                    {
                         Dibujar(msgDibPun);
                     }
                     break;
@@ -113,14 +119,28 @@ namespace misClases
                     {
                         try
                         {
-                            MensajeTocaDibujar msgEn = (MensajeTocaDibujar) msg;
+                            MensajeTocaDibujar msgEn = (MensajeTocaDibujar)msg;
                             TocaDibujar(msgEn);
                         }
                         catch (InvalidCastException e) { }
                     }
                     break;
 
+                case "MensajeFinTrazo":
+                    if (FinTrazo != null)
+                    {
+
+                        try
+                        {
+                            MensajeFinTrazo msgEn = (MensajeFinTrazo)msg;
+                            FinTrazo(msgEn);
+                        }
+                        catch (InvalidCastException e) { }
+                    }
+                    break;
             }
+
+
         }
 
 
