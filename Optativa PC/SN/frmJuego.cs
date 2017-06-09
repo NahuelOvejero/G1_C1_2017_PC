@@ -26,6 +26,7 @@ namespace SN
         public frmJuego(clsUsuario us,clsComunicacion c)
         {
             InitializeComponent();
+            lblMensaje.Visible = false;
             usuario = us;
             comunicacion = c;
             comunicacion.RespuestaPalabraEnviada += Comunicacion_RespuestaPalabraEnviada;
@@ -46,26 +47,40 @@ namespace SN
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
-            label2.Text = "Empezo Partida";
+            lblMensaje.Invoke((Action)(() => lblMensaje.Visible = true));
+            for (int i = 10; i > 0; i--)
+            {
+                Invoke((Action)(() =>
+                {
+                    lblMensaje.Text = "La partida comenzará en:" + i;
+                }));
+                Thread.Sleep(1000);
+            }
+            lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
             cont = 60;
             timer1.Start();
         }
+        private void contar()
+        {
 
+        }
         private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
         {
             if(usuario.User == m.Dibujante)
             {
-                groupBox1.Visible = true;
-                lblPalabra.Text = m.PalabraAdivinar;
-                pnlDibujo.Visible = true;
-                pnlAdivina.Visible = false;
+                groupBox1.Invoke((Action)(() => groupBox1.Visible = true ));
+                lblPalabra.Invoke((Action)(()=> lblPalabra.Text = m.PalabraAdivinar));
+                pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));
+                pnlAdivina.Invoke((Action)(()=>pnlAdivina.Visible=false));
+                tbPalabra.Invoke((Action)(() => tbPalabra.Visible = false));
             }
             else
             {
-                groupBox1.Visible = false;
-                lblPalabra.Text = m.PalabraAdivinar;
-                pnlDibujo.Visible = false;
-                pnlAdivina.Visible = true;
+                groupBox1.Invoke((Action)(() =>groupBox1.Visible=false));
+                lblPalabra.Invoke((Action)(() =>lblPalabra.Visible=false));
+                pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = false));
+                pnlAdivina.Invoke((Action)(() => pnlAdivina.Visible = true));
+                tbPalabra.Invoke((Action)(() => tbPalabra.Visible = true));
             }
         }
 
@@ -152,18 +167,15 @@ namespace SN
             lapiz.Width = (int)nudWidth.Value;
         }
 
-        private void lbUsuarios_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void timer1_Tick(object sender, EventArgs e)
- {
-     if (cont != 0)
-     {
-         cont--;
-         lblContador.Text = cont.ToString();
-     }
+        {
+             if (cont != 0)
+              {
+               cont--;
+              lblContador.Text = cont.ToString();
+             }
         }
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)

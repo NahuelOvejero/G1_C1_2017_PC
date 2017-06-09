@@ -20,10 +20,9 @@ namespace SvPinturillo
         int port = 8999;
         IPAddress localAddr = IPAddress.Parse("127.0.0.1");//127.0.0.1");
         TcpListener server;
-        TcpClient client;
         private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
-        string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "ratón", "gafas", "silla", "mochila", "jarrón", "cuadro", "sillón", "computadora" };
+        string[] palabras = new string[] { "perro", "gato", "auto", "casa", "celular", "teclado", "gafas", "silla", "mochila", "televisor", "cuadro", "campera", "computadora" };
         string palabraDesignada="perro";
         List<string> orden = new List<string>();
        
@@ -239,7 +238,7 @@ namespace SvPinturillo
 
                     case "MensajeEntrarSala":
                    
-                        if (conectados > 1)
+                        if (listaClientes.Count > 1)
                         {
                             empezarPartida();
                         }
@@ -318,6 +317,7 @@ namespace SvPinturillo
         //a la vez verifica la ronda actual.
         //suponiendo que el juego tendra 3 rondas donde dibujara una vez uno de los cuatro participantes.
         public void avanzarTurno() {
+            Console.WriteLine("Avanza un turno"+turnoActual);
             turnoActual++;
             if (turnoActual > 3) {
                 rondaActual++;
@@ -330,6 +330,7 @@ namespace SvPinturillo
 
         public void empezarPartida()
         {
+            Console.WriteLine("Empezando partida...");
             Random ran = new Random();
             int i = ran.Next(0, palabras.Length - 1);
             palabraDesignada = palabras[i];

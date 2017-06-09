@@ -53,8 +53,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbPalabra = new System.Windows.Forms.TextBox();
             this.pnlAdivina = new System.Windows.Forms.Panel();
+            this.lblMensaje = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
+            this.pnlAdivina.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlDibujo
@@ -284,7 +286,7 @@
             this.lbUsuarios.Name = "lbUsuarios";
             this.lbUsuarios.Size = new System.Drawing.Size(166, 300);
             this.lbUsuarios.TabIndex = 22;
-            this.lbUsuarios.SelectedIndexChanged += new System.EventHandler(this.lbUsuarios_SelectedIndexChanged);
+           
             // 
             // label4
             // 
@@ -309,10 +311,22 @@
             // 
             this.pnlAdivina.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlAdivina.BackColor = System.Drawing.Color.White;
+            this.pnlAdivina.Controls.Add(this.lblMensaje);
             this.pnlAdivina.Location = new System.Drawing.Point(196, 131);
             this.pnlAdivina.Name = "pnlAdivina";
             this.pnlAdivina.Size = new System.Drawing.Size(464, 342);
             this.pnlAdivina.TabIndex = 25;
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.ForeColor = System.Drawing.Color.Green;
+            this.lblMensaje.Location = new System.Drawing.Point(112, 54);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(236, 94);
+            this.lblMensaje.TabIndex = 0;
+            this.lblMensaje.Text = "label5";
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmJuego
             // 
@@ -341,6 +355,7 @@
             this.Load += new System.EventHandler(this.frmJuego_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
+            this.pnlAdivina.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,5 +387,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbPalabra;
         private System.Windows.Forms.Panel pnlAdivina;
+        private System.Windows.Forms.Label lblMensaje;
     }
 }

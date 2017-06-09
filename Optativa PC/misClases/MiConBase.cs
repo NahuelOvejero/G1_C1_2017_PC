@@ -27,7 +27,7 @@ namespace misClases
             try
             {
        
-                client = new TcpClient("10.62.200.18", port);
+                client = new TcpClient("127.0.0.1", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream) { AutoFlush = true };
