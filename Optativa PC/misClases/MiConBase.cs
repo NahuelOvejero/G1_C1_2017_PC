@@ -39,8 +39,8 @@ namespace misClases
             while (true)
             {
                 string e = reader.ReadLine();
-                Console.WriteLine(e);
-                Task.Run(()=>serializador.recibirMensaje(e));
+                Console.WriteLine("Mensaje recibido: "+ e);
+                serializador.recibirMensaje(e);
             }
         }
         public void enviar(string msg)

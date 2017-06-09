@@ -15,6 +15,11 @@ namespace SN
    
     public partial class frmJuego : Form
     {
+
+        //puntos para dibujar correctamente linea intermedia
+        public Point current = new Point();
+        public Point old = new Point();
+
         private bool btnDown;
         Pen lapiz;
         Graphics grafico,grafico2;
@@ -23,6 +28,11 @@ namespace SN
         clsComunicacion comunicacion;
         EventWaitHandle _EsperarHilo = new AutoResetEvent(false),_PantallaActualizada=new AutoResetEvent(false);
         string toca = "";
+
+
+
+
+
         public frmJuego(clsUsuario us,clsComunicacion c)
         {
             InitializeComponent();
@@ -34,6 +44,8 @@ namespace SN
             comunicacion.TocaDibujar += Comunicacion_TocaDibujar;
             comunicacion.IniciarPartida += Comunicacion_IniciarPartida;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
+            lapiz.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+
             grafico = pnlDibujo.CreateGraphics();
             grafico2 = pnlAdivina.CreateGraphics();
           //  grafsecundario = pnlSecundarioDIbujar.CreateGraphics();
@@ -47,8 +59,8 @@ namespace SN
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
-            _PantallaActualizada.Set();
-            _EsperarHilo.WaitOne();
+            //_PantallaActualizada.Set();
+           // _EsperarHilo.WaitOne();
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = true));
             Thread.Sleep(2000);
             for (int i = 10; i > 0; i--)
@@ -70,7 +82,7 @@ namespace SN
         }
         private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
         {
-            _PantallaActualizada.WaitOne();
+           // _PantallaActualizada.WaitOne();
             if (usuario.User == m.Dibujante)
             {
                 lblPalabra.Invoke((Action)(() => lblPalabra.Visible = true));
@@ -89,7 +101,7 @@ namespace SN
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = true));
                 toca = "Tenés que adivinar";
             }
-            _EsperarHilo.Set();
+           // _EsperarHilo.Set();
         }
 
         private void Comunicacion_Dibujar(MensajeDibujarPuntos m)
@@ -100,7 +112,6 @@ namespace SN
             //pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
             pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
         }
-
 
 
         private void Comunicacion_RespuestaPalabraEnviada(MensajeEnviarPalabra m)
@@ -147,11 +158,7 @@ namespace SN
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                btnDown = true;
-                
-            }
+            old = e.Location;
         }
 
         private void pnlDibujo_MouseUp(object sender, MouseEventArgs e)
@@ -164,14 +171,18 @@ namespace SN
 
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
-            if (btnDown)
+            if (e.Button == MouseButtons.Left)
             {
-                int x = e.X, y = e.Y,grosor=(int)lapiz.Width,colorRgb=lapiz.Color.ToArgb();
-                grafico.DrawLine(lapiz, x, y, x+1 , y+1);
-                // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
-                Task.Run(()=>comunicacion.enviarDibujado(grosor,colorRgb,x,y, usuario.User));
-               
+
+                current = e.Location;
+                grafico.DrawLine(lapiz, old, current);
+                old = current;
             }
+            int x = e.X, y = e.Y, grosor = (int)lapiz.Width, colorRgb = lapiz.Color.ToArgb();
+            //grafico.DrawLine(lapiz, x, y, x + 1, y + 1);
+            // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
+            comunicacion.enviarDibujado(grosor, colorRgb, x, y, usuario.User);
+            
         }
            
        
@@ -206,7 +217,7 @@ namespace SN
             {
                 if ((rta != "") && (rta != null))
                 {
-                    Task.Run(() => comunicacion.enviaRta(rta, usuario.User,cont));
+                    comunicacion.enviaRta(rta, usuario.User, cont);
                 }
                 tbPalabra.Clear();
             }
