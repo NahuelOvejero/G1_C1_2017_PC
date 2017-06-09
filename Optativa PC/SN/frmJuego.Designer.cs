@@ -39,14 +39,14 @@
             this.pnlMarron = new System.Windows.Forms.Panel();
             this.pnlAmarillo = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudWidth = new System.Windows.Forms.NumericUpDown();
             this.lbPalabrasIncorrectas = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNick = new System.Windows.Forms.Label();
             this.lblPuntos = new System.Windows.Forms.Label();
             this.lblPalabra = new System.Windows.Forms.Label();
-            this.nudWidth = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.lblCont = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lbUsuarios = new System.Windows.Forms.ListBox();
@@ -157,7 +157,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.pnlAmarillo);
+            this.groupBox1.Controls.Add(this.nudWidth);
             this.groupBox1.Controls.Add(this.pnlMarron);
             this.groupBox1.Controls.Add(this.pnlAzul);
             this.groupBox1.Controls.Add(this.pnlVerde);
@@ -170,6 +172,39 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Colores";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(230, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Ancho:";
+            // 
+            // nudWidth
+            // 
+            this.nudWidth.Location = new System.Drawing.Point(286, 15);
+            this.nudWidth.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.nudWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudWidth.Name = "nudWidth";
+            this.nudWidth.Size = new System.Drawing.Size(36, 20);
+            this.nudWidth.TabIndex = 19;
+            this.nudWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudWidth.ValueChanged += new System.EventHandler(this.nudWidth_ValueChanged);
             // 
             // lbPalabrasIncorrectas
             // 
@@ -229,39 +264,6 @@
             this.lblPalabra.Text = "label3";
             this.lblPalabra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // nudWidth
-            // 
-            this.nudWidth.Location = new System.Drawing.Point(478, 98);
-            this.nudWidth.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.nudWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudWidth.Name = "nudWidth";
-            this.nudWidth.Size = new System.Drawing.Size(36, 20);
-            this.nudWidth.TabIndex = 19;
-            this.nudWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudWidth.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudWidth.ValueChanged += new System.EventHandler(this.nudWidth_ValueChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(431, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "Ancho:";
-            // 
             // lblCont
             // 
             this.lblCont.Location = new System.Drawing.Point(556, 20);
@@ -286,7 +288,6 @@
             this.lbUsuarios.Name = "lbUsuarios";
             this.lbUsuarios.Size = new System.Drawing.Size(166, 300);
             this.lbUsuarios.TabIndex = 22;
-           
             // 
             // label4
             // 
@@ -321,9 +322,9 @@
             // 
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje.ForeColor = System.Drawing.Color.Green;
-            this.lblMensaje.Location = new System.Drawing.Point(112, 54);
+            this.lblMensaje.Location = new System.Drawing.Point(91, 48);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(236, 94);
+            this.lblMensaje.Size = new System.Drawing.Size(326, 189);
             this.lblMensaje.TabIndex = 0;
             this.lblMensaje.Text = "label5";
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -340,8 +341,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbUsuarios);
             this.Controls.Add(this.lblCont);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.nudWidth);
             this.Controls.Add(this.lblPalabra);
             this.Controls.Add(this.lblPuntos);
             this.Controls.Add(this.lblNick);
@@ -354,6 +353,7 @@
             this.Text = "frmJuego";
             this.Load += new System.EventHandler(this.frmJuego_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
             this.pnlAdivina.ResumeLayout(false);
             this.ResumeLayout(false);

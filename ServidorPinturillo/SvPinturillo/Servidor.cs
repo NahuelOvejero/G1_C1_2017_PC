@@ -40,6 +40,7 @@ namespace SvPinturillo
         public void start()
         {
             server.Start();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Servidor iniciado");
             while (true)
             {
@@ -167,6 +168,8 @@ namespace SvPinturillo
                     }
 
                     Thread HiloAtender = new Thread(c.atender);
+                    Console.Out.NewLine = "\r\n\r\n";
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(msjBase.Fecha + ":El usuario se ha logeado: " + nombre);
                     Console.WriteLine("Total conectados " + listaClientes.Count);
                     string resp = JsonConvert.SerializeObject(respuesta);
@@ -180,6 +183,7 @@ namespace SvPinturillo
                     respuesta.Conectado = false;
                     respuesta.Mensaje = "Nombre de usuario ya existente ";
                     string resp = JsonConvert.SerializeObject(respuesta);
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Nombre de usuario ya existente " + msjBase.From);
                     writer.WriteLine(resp);
                 }
@@ -195,6 +199,7 @@ namespace SvPinturillo
                 orden.RemoveAt(orden.IndexOf(id));
                 conectados--;
             }
+            Console.ForegroundColor = ConsoleColor.Red;
 
             Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
         }
@@ -218,8 +223,9 @@ namespace SvPinturillo
                                 mj.From = "";
                                 mj.Correcta = true; 
                                 enviarTodos(mj, "");
+                                empezarPartida();
                             }
-                            empezarPartida();
+                            
                         }
                         else {
                             
@@ -237,12 +243,15 @@ namespace SvPinturillo
                         break;
 
                     case "MensajeEntrarSala":
-                   
-                        if (listaClientes.Count > 1)
+
+                        Console.WriteLine("ENTRO A LA BENDITA SALA");
+                        if (listaClientes.Count > 1) 
+
                         {
                             empezarPartida();
                         }
                         break;
+
                 }
             }
             #region msg todos o server
@@ -319,7 +328,9 @@ namespace SvPinturillo
         public void avanzarTurno() {
             Console.WriteLine("Avanza un turno"+turnoActual);
             turnoActual++;
-            if (turnoActual > 3) {
+            //RONDA DE TESTING
+            //SOLO DOS JUGADORES 
+            if (turnoActual > 1) {
                 rondaActual++;
                 turnoActual = 0;
             }
@@ -327,14 +338,18 @@ namespace SvPinturillo
                    //TERMINAR PARTIDA Y DAR GANADOR GLOBAL.
             }
         }
-
+    
         public void empezarPartida()
         {
-            Console.WriteLine("Empezando partida...");
+
+            Console.WriteLine("Empezo la partida");
+
             Random ran = new Random();
             int i = ran.Next(0, palabras.Length - 1);
             palabraDesignada = palabras[i];
+            Console.WriteLine("Palabra designada " + palabraDesignada);
             MensajeTocaDibujar msjToca = new MensajeTocaDibujar("", "*", 1, orden.ElementAt<string>(turnoActual), palabraDesignada);
+            Console.WriteLine("Turno de dibujar: " + orden.ElementAt<string>(turnoActual));
             MensajeIniciarPartida iniciar = new MensajeIniciarPartida("", "*", 1);
             //SE ENVIA A TODOS EL MENSAJE Iniciar Partida y toca dibujar
             enviarTodos(msjToca, "");

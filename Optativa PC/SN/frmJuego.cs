@@ -21,8 +21,8 @@ namespace SN
         clsUsuario usuario;
         //frmPrueba prueba;
         clsComunicacion comunicacion;
-        
-
+        EventWaitHandle _EsperarHilo = new AutoResetEvent(false),_PantallaActualizada=new AutoResetEvent(false);
+        string toca = "";
         public frmJuego(clsUsuario us,clsComunicacion c)
         {
             InitializeComponent();
@@ -47,16 +47,20 @@ namespace SN
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
+            _PantallaActualizada.Set();
+            _EsperarHilo.WaitOne();
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = true));
+            Thread.Sleep(2000);
             for (int i = 10; i > 0; i--)
             {
                 Invoke((Action)(() =>
                 {
-                    lblMensaje.Text = "La partida comenzará en:" + i;
+                    lblMensaje.Text =toca+ ". La partida comenzará en:" + i;
                 }));
                 Thread.Sleep(1000);
             }
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
+            pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));
             cont = 60;
             timer1.Start();
         }
@@ -66,13 +70,15 @@ namespace SN
         }
         private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
         {
-            if(usuario.User == m.Dibujante)
+            _PantallaActualizada.WaitOne();
+            if (usuario.User == m.Dibujante)
             {
+                lblPalabra.Invoke((Action)(() => lblPalabra.Visible = true));
                 groupBox1.Invoke((Action)(() => groupBox1.Visible = true ));
                 lblPalabra.Invoke((Action)(()=> lblPalabra.Text = m.PalabraAdivinar));
-                pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));
                 pnlAdivina.Invoke((Action)(()=>pnlAdivina.Visible=false));
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = false));
+                toca = "Sos dibujante";
             }
             else
             {
@@ -81,7 +87,9 @@ namespace SN
                 pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = false));
                 pnlAdivina.Invoke((Action)(() => pnlAdivina.Visible = true));
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = true));
+                toca = "Tenés que adivinar";
             }
+            _EsperarHilo.Set();
         }
 
         private void Comunicacion_Dibujar(MensajeDibujarPuntos m)
@@ -102,11 +110,22 @@ namespace SN
                 if (m.To == usuario.User)
                 {
                 usuario.Puntos += m.Puntos;
-                MessageBox.Show("Ganaste!");
-            }
+                lblPuntos.Invoke((Action)(()=>lblPuntos.Text = usuario.Puntos.ToString()));
+                    lblMensaje.Invoke((Action)(() =>
+                    {
+                        lblMensaje.Text = "Ganaste esta ronda!!";
+                        lblMensaje.Visible = true;
+                    }
+                    ));
+                }
             else
-            {
-                    MessageBox.Show("El ganador es" + m.To + "!");
+                {
+                    lblMensaje.Invoke((Action)(() =>
+                    {
+                        lblMensaje.Text = "El ganador es" + m.To + "!";
+                        lblMensaje.Visible = true;
+                    }
+                ));
                 }
             }
             else
@@ -177,6 +196,8 @@ namespace SN
               lblContador.Text = cont.ToString();
              }
         }
+
+     
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {

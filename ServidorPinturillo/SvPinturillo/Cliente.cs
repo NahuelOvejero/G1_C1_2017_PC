@@ -43,26 +43,32 @@ namespace SvPinturillo
                 {
 
                     mensaje = reader.ReadLine();
+                    Console.Out.NewLine = "\r\n\r\n";
+                   
                     Console.WriteLine(mensaje);
                     MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
                     switch (msj.TipoMensaje)
                     {
                         case "MensajeLogin":
                             msj = JsonConvert.DeserializeObject<MensajeLogin>(mensaje);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
                             break;
 
                         case "MensajeDibujarPuntos":
                             msj = JsonConvert.DeserializeObject<MensajeDibujarPuntos>(mensaje);
+                            Console.ForegroundColor = ConsoleColor.Blue;
                             break;
 
                         case "MensajeEntrarSala":
                             msj = JsonConvert.DeserializeObject<MensajeEntrarSala>(mensaje);
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             break;
                         case "MensajeGanador":
                             msj = JsonConvert.DeserializeObject<MensajeGanador>(mensaje);
                             break;
                         case "MensajeEnviarPalabra":
                             msj = JsonConvert.DeserializeObject<MensajeEnviarPalabra>(mensaje);
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                       
                     }

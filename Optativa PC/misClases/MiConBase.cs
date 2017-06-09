@@ -26,7 +26,7 @@ namespace misClases
             serializador.Enviar +=enviar;
             try
             {
-       
+
                 client = new TcpClient("127.0.0.1", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
@@ -39,12 +39,12 @@ namespace misClases
             while (true)
             {
                 string e = reader.ReadLine();
-                serializador.recibirMensaje(e);
+                Console.WriteLine(e);
+                Task.Run(()=>serializador.recibirMensaje(e));
             }
         }
         public void enviar(string msg)
         {
-            Console.WriteLine(msg);
             try { writer.WriteLine(msg); }
             catch (NullReferenceException e) { string s = e.Message; }            
         }
