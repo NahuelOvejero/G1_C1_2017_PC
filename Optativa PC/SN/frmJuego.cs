@@ -16,6 +16,9 @@ namespace SN
     public partial class frmJuego : Form
     {
 
+        //recibe
+        Point antiguo;
+
         //puntos para dibujar correctamente linea intermedia
         public Point current = new Point();
         public Point old = new Point();
@@ -106,11 +109,19 @@ namespace SN
 
         private void Comunicacion_Dibujar(MensajeDibujarPuntos m)
         {
-            Color colorcito = Color.FromArgb(m.ColorRGB);
-            Pen lap = new Pen(colorcito,m.Grosor);
-            
-            //pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
-            pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
+            if (antiguo != null)
+            {
+                Color colorcito = Color.FromArgb(m.ColorRGB);
+                Pen lap = new Pen(colorcito, m.Grosor);
+                lap.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+               //pnlDibujo.Invoke((Action)(()=>grafico.DrawLine(lap, m.CordX, m.CordY, m.CordX + 1, m.CordY)));
+                pnlAdivina.Invoke((Action)(() => grafico2.DrawLine(lap, antiguo.X, antiguo.Y, m.CordX, m.CordY)));
+                antiguo = new Point(m.CordX, m.CordY);
+            }
+            else {
+                antiguo = new Point(m.CordX, m.CordY);
+            }
+
         }
 
 
@@ -159,7 +170,12 @@ namespace SN
 
         private void pnlDibujo_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+            {
+                btnDown = true;
+            }
             old = e.Location;
+            
         }
 
         private void pnlDibujo_MouseUp(object sender, MouseEventArgs e)
@@ -172,17 +188,17 @@ namespace SN
 
         private void pnlDibujo_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && btnDown)
             {
-
                 current = e.Location;
                 grafico.DrawLine(lapiz, old, current);
                 old = current;
+
+                int x = e.X, y = e.Y, grosor = (int)lapiz.Width, colorRgb = lapiz.Color.ToArgb();
+                //grafico.DrawLine(lapiz, x, y, x + 1, y + 1);
+                // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
+                comunicacion.enviarDibujado(grosor, colorRgb, x, y, usuario.User);
             }
-            int x = e.X, y = e.Y, grosor = (int)lapiz.Width, colorRgb = lapiz.Color.ToArgb();
-            //grafico.DrawLine(lapiz, x, y, x + 1, y + 1);
-            // grafico.DrawLine(lapiz, e.X, e.Y, e.X -1, e.Y -1);
-            comunicacion.enviarDibujado(grosor, colorRgb, x, y, usuario.User);
             
         }
            
