@@ -65,7 +65,10 @@ namespace SN
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
             //_PantallaActualizada.Set();
-           // _EsperarHilo.WaitOne();
+            // _EsperarHilo.WaitOne();
+
+            while (this.IsDisposed) { }
+
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = true));
             Thread.Sleep(2000);
             for (int i = 10; i > 0; i--)
@@ -185,6 +188,7 @@ namespace SN
             if (e.Button == MouseButtons.Left)
             {
                 btnDown = false;
+                comunicacion.enviarFinTrazo(usuario.User);
             }
         }
 

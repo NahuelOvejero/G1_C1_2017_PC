@@ -171,6 +171,12 @@ namespace misClases
             MensajeEnviarPalabra enviarPalabra = new MensajeEnviarPalabra(nombre, "", 0, rta,puntos);
             serializador.enviarMensaje(enviarPalabra);
         }
+
+        public void enviarFinTrazo(string emisor)
+        {
+            MensajeFinTrazo mf = new MensajeFinTrazo(emisor, "*" ,0);
+            serializador.enviarMensaje(mf);
+        }
         
         #endregion
     }

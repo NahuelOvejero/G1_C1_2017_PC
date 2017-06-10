@@ -10,6 +10,7 @@ namespace Mensajes
     {
         public MensajeFinTrazo(string from, string to, int sala) : base(from, to, sala)
         {
+            this.TipoMensaje = "MensajeFinTrazo";
         }
 
 

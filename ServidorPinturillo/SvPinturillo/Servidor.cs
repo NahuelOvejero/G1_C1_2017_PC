@@ -252,6 +252,9 @@ namespace SvPinturillo
                         }
                         break;
 
+                    case "MensajeFinTrazo":
+                        enviarTodos(msg, msg.From);                     
+                        break;
                 }
             }
             #region msg todos o server
