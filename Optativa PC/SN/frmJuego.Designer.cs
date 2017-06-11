@@ -54,6 +54,7 @@
             this.tbPalabra = new System.Windows.Forms.TextBox();
             this.pnlAdivina = new System.Windows.Forms.Panel();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.lblAdivina = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             this.pnlAdivina.SuspendLayout();
@@ -166,7 +167,7 @@
             this.groupBox1.Controls.Add(this.pnlBlanco);
             this.groupBox1.Controls.Add(this.pnlNegro);
             this.groupBox1.Controls.Add(this.pnlRojo);
-            this.groupBox1.Location = new System.Drawing.Point(196, 83);
+            this.groupBox1.Location = new System.Drawing.Point(255, 79);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(348, 42);
             this.groupBox1.TabIndex = 12;
@@ -331,12 +332,25 @@
             this.lblMensaje.Text = "label5";
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblAdivina
+            // 
+            this.lblAdivina.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblAdivina.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdivina.ForeColor = System.Drawing.Color.Tomato;
+            this.lblAdivina.Location = new System.Drawing.Point(251, 98);
+            this.lblAdivina.Name = "lblAdivina";
+            this.lblAdivina.Size = new System.Drawing.Size(313, 23);
+            this.lblAdivina.TabIndex = 26;
+            this.lblAdivina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmJuego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(887, 526);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.lblAdivina);
             this.Controls.Add(this.pnlAdivina);
             this.Controls.Add(this.tbPalabra);
             this.Controls.Add(this.lblContador);
@@ -349,7 +363,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbPalabrasIncorrectas);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pnlDibujo);
             this.Name = "frmJuego";
             this.Text = "frmJuego";
@@ -390,5 +403,6 @@
         private System.Windows.Forms.TextBox tbPalabra;
         private System.Windows.Forms.Panel pnlAdivina;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.Label lblAdivina;
     }
 }

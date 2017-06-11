@@ -88,14 +88,20 @@ namespace SN
         {
 
         }
+
+        MensajeTocaDibujar msj;
+        string p;
         private void Comunicacion_TocaDibujar(MensajeTocaDibujar m)
         {
-           // _PantallaActualizada.WaitOne();
+            msj = m;
+            p = msj.PalabraAdivinar;
+            // _PantallaActualizada.WaitOne();
             if (usuario.User == m.Dibujante)
             {
                 lblPalabra.Invoke((Action)(() => lblPalabra.Visible = true));
                 groupBox1.Invoke((Action)(() => groupBox1.Visible = true ));
                 lblPalabra.Invoke((Action)(()=> lblPalabra.Text = m.PalabraAdivinar));
+                lblAdivina.Invoke((Action)(() => lblAdivina.Visible = false));
                 pnlAdivina.Invoke((Action)(()=>pnlAdivina.Visible=false));
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = false));
                 toca = "Sos dibujante";
@@ -104,6 +110,17 @@ namespace SN
             {
                 groupBox1.Invoke((Action)(() =>groupBox1.Visible=false));
                 lblPalabra.Invoke((Action)(() =>lblPalabra.Visible=false));
+                lblAdivina.Invoke((Action)(() =>
+                {
+                    lblAdivina.Visible = true;
+                    lblAdivina.Text = "";
+                    int longPalabra = m.PalabraAdivinar.Length;
+                    for (int i = 0; i < longPalabra; i++)
+                    {
+                        lblAdivina.Text += " _ ";
+                    }
+                }
+                ));
                 pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = false));
                 pnlAdivina.Invoke((Action)(() => pnlAdivina.Visible = true));
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = true));
@@ -222,10 +239,40 @@ namespace SN
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            //if (cont != 0)
+            //{
+            //    cont--;
+            //    lblContador.Text = cont.ToString();
+            //}
+
+            
+            int a = 0;
+
             if (cont != 0)
             {
                 cont--;
                 lblContador.Text = cont.ToString();
+                if (cont == 50 && a <= p.Length)
+                {
+                    lblAdivina.Text = "";
+                    lblAdivina.Text = p[0].ToString().ToUpper();
+                    for (int i = 1; i < p.Length; i++)
+                    {
+                        lblAdivina.Text += " _ ";
+                    }
+                }
+
+                if (cont == 45 && a <= p.Length)
+                {
+                    lblAdivina.Text = "";
+                    lblAdivina.Text = p[0].ToString().ToUpper();
+                    for (int i = 1; i < p.Length - 1; i++)
+                    {
+                        lblAdivina.Text += " _ ";
+                    }
+                    lblAdivina.Text += p[p.Length - 1].ToString().ToUpper();
+                }
+                a++;
             }
         }
 
