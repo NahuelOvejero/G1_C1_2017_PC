@@ -147,6 +147,18 @@
   <ItemGroup>
     <None Include="Resources\SALAX.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ff11.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pizarron.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ff12.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ff123.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

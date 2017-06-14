@@ -285,7 +285,10 @@ namespace SN
              
         }
 
-     
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {
