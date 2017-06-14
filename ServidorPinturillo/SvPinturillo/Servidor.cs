@@ -19,7 +19,7 @@ namespace SvPinturillo
         CancellationTokenSource RecToken;
         CancellationToken EndToken;
         int port = 8999;
-        IPAddress localAddr = IPAddress.Parse("127.0.0.1");//127.0.0.1");
+        IPAddress localAddr = IPAddress.Parse("10.62.200.29");//127.0.0.1");
         TcpListener server;
         private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
@@ -27,7 +27,7 @@ namespace SvPinturillo
         string palabraDesignada="perro";
         List<string> orden = new List<string>();
        
-        int conectados = 0;
+        int enSala = 0;
         int rondaActual = 0;
         int turnoActual = 0;
 
@@ -165,7 +165,7 @@ namespace SvPinturillo
                         //o poner al usuario en lista de espera
                         listaClientes.Add(c);
                         orden.Add(c.Id);
-                        conectados++;
+                      
                     }
 
                     Thread HiloAtender = new Thread(c.atender);
@@ -198,7 +198,7 @@ namespace SvPinturillo
             {   if(i>-1)
                 listaClientes.RemoveAt(i);
                 orden.RemoveAt(orden.IndexOf(id));
-                conectados--;
+                enSala--;
             }
             Console.ForegroundColor = ConsoleColor.Red;
 
@@ -249,8 +249,8 @@ namespace SvPinturillo
 
                     case "MensajeEntrarSala":
 
-                        Console.WriteLine("ENTRO A LA BENDITA SALA");
-                        if (conectados==1)
+                        Console.WriteLine("ENTRO A LA BENDITA SALA");enSala++;
+                        if (enSala>1)
                         {
                             Thread.Sleep(3000);      
                             empezarPartida();

@@ -27,7 +27,7 @@ namespace misClases
             try
             {
 
-                client = new TcpClient("localhost", port);
+                client = new TcpClient("10.62.200.29", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream) { AutoFlush = true };
@@ -39,6 +39,7 @@ namespace misClases
             while (true)
             {
                 string e = reader.ReadLine();
+               
                 serializador.recibirMensaje(e);
             }
         }

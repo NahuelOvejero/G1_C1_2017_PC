@@ -56,7 +56,6 @@
             this.tbPalabra = new System.Windows.Forms.TextBox();
             this.lblAdivina = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pnlDibujo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,7 +67,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlDibujo.BackColor = System.Drawing.Color.White;
-            this.pnlDibujo.Controls.Add(this.pnlAdivina);
             this.pnlDibujo.Cursor = System.Windows.Forms.Cursors.Cross;
             this.pnlDibujo.Location = new System.Drawing.Point(28, 29);
             this.pnlDibujo.Name = "pnlDibujo";
@@ -82,9 +80,9 @@
             // 
             this.pnlAdivina.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlAdivina.BackColor = System.Drawing.Color.White;
-            this.pnlAdivina.Location = new System.Drawing.Point(-7, 3);
+            this.pnlAdivina.Location = new System.Drawing.Point(42, 25);
             this.pnlAdivina.Name = "pnlAdivina";
-            this.pnlAdivina.Size = new System.Drawing.Size(629, 372);
+            this.pnlAdivina.Size = new System.Drawing.Size(632, 426);
             this.pnlAdivina.TabIndex = 25;
             // 
             // lblMensaje
@@ -382,8 +380,9 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panel1.BackgroundImage = global::SN.Properties.Resources.pizarron;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblMensaje);
+            this.panel1.Controls.Add(this.pnlAdivina);
             this.panel1.Controls.Add(this.pnlDibujo);
+            this.panel1.Controls.Add(this.lblMensaje);
             this.panel1.Location = new System.Drawing.Point(227, 131);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(715, 507);
@@ -414,7 +413,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmJuego";
             this.Load += new System.EventHandler(this.frmJuego_Load);
-            this.pnlDibujo.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).EndInit();
