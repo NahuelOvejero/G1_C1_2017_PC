@@ -15,11 +15,11 @@ namespace SvPinturillo
 {
     public class Servidor
     {
-
+        
         CancellationTokenSource RecToken;
         CancellationToken EndToken;
         int port = 8999;
-        IPAddress localAddr = IPAddress.Parse("10.62.200.29");//127.0.0.1");
+        IPAddress localAddr = IPAddress.Parse("10.62.200.13");//127.0.0.1");
         TcpListener server;
         private object _ListaLocker = new object(), _banderLocker = new object();
         List<Cliente> listaClientes = new List<Cliente>();
@@ -227,6 +227,7 @@ namespace SvPinturillo
                                 mj.Correcta = true;
                                 enviarTodos(mj, "");
                                 RecToken.Cancel();
+                                
                                 empezarPartida();
                             }
 
@@ -354,7 +355,7 @@ namespace SvPinturillo
     
         public void empezarPartida()
         {
-
+          
             Console.WriteLine("Empezo la partida");
             RecToken = new CancellationTokenSource();
             EndToken = RecToken.Token;
@@ -369,17 +370,23 @@ namespace SvPinturillo
             enviarTodos(msjToca, "");
             enviarTodos(iniciar, "");
             //THREAD CONTADOR 
-            Thread HiloContador=new Thread(() => {
-                int cont = 60;
-                while (!EndToken.IsCancellationRequested && cont!=0) {
-                    MensajeContador mensajeContador = new MensajeContador("", "*", 1, cont--);
-                    enviarTodos(mensajeContador, "");
-                    Thread.Sleep(1000);
-                }
-            });
-            HiloContador.Start();
+            Thread HiloContador = new Thread(contador);
+            HiloContador.Start(EndToken);
             avanzarTurno();
             //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR
+        }
+
+        public void contador(object token)
+        {
+            CancellationToken EndToken = (CancellationToken)token;
+            int cont = 60;
+            while (!EndToken.IsCancellationRequested && cont != 0)
+            {
+                MensajeContador mensajeContador = new MensajeContador("", "*", 1, cont--);
+                enviarTodos(mensajeContador, "");
+                Thread.Sleep(1000);
+            }
+
         }
 
         public void reiniciarPartida()

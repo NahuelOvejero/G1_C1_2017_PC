@@ -29,7 +29,7 @@ namespace SN
         clsUsuario usuario;
         //frmPrueba prueba;
         clsComunicacion comunicacion;
-        EventWaitHandle _EsperarHilo = new AutoResetEvent(false),_PantallaActualizada=new AutoResetEvent(false);
+      //  EventWaitHandle _EsperarHilo = new AutoResetEvent(false),_PantallaActualizada=new AutoResetEvent(false);
         string toca = "";
 
 
@@ -108,6 +108,7 @@ namespace SN
                 lblAdivina.Invoke((Action)(() => lblAdivina.Visible = false));
                 pnlAdivina.Invoke((Action)(()=>pnlAdivina.Visible=false));
                 tbPalabra.Invoke((Action)(() => tbPalabra.Visible = false));
+                pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));
                 toca = "Sos dibujante";
             }
             else
