@@ -29,7 +29,8 @@ namespace misClases
         public event DelTocaDibujar TocaDibujar;
         public delegate void DelMensajeFinTrazo(MensajeFinTrazo m);
         public event DelMensajeFinTrazo FinTrazo;
-
+        public delegate void DelMensajeContador(MensajeContador m);
+        public event DelMensajeContador Contador;
         #endregion
 
         public void contador()
@@ -138,6 +139,19 @@ namespace misClases
                         catch (InvalidCastException e) { }
                     }
                     break;
+                case "MensajeContador":
+                    if(Contador !=null)
+                    {
+                        try
+                        {
+                            MensajeContador msgCon = (MensajeContador)msg;
+                            Contador(msgCon);
+                        }
+                        catch (InvalidCastException e) {
+                            Console.WriteLine("151" + e.Message);
+                        }
+                    }
+                    break;
             }
 
 
@@ -148,7 +162,7 @@ namespace misClases
         public void enviarDibujado(int grosor,int colorRGB, int x,int y,string nombre)
         {
 
-            MensajeDibujarPuntos dibPuntos = new MensajeDibujarPuntos(nombre, "*",grosor,colorRGB,x, y, 0, "");
+            MensajeDibujarPuntos dibPuntos = new MensajeDibujarPuntos(nombre, "-",grosor,colorRGB,x, y, 0, "");
             serializador.enviarMensaje(dibPuntos);
         }
 

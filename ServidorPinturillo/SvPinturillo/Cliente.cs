@@ -44,8 +44,6 @@ namespace SvPinturillo
 
                     mensaje = reader.ReadLine();
                     Console.Out.NewLine = "\r\n\r\n";
-                   
-                    Console.WriteLine(mensaje);
                     MensajeBase msj = JsonConvert.DeserializeObject<MensajeBase>(mensaje);
                     switch (msj.TipoMensaje)
                     {
@@ -101,8 +99,13 @@ namespace SvPinturillo
         public void enviar(MensajeBase msj) {
             
             string str = JsonConvert.SerializeObject(msj);
-            Console.WriteLine(msj);
-            writer.WriteLine(str);
+            try
+            {
+                writer.WriteLine(str);
+            }
+            catch (IOException e) {
+                Console.WriteLine("No se pudo enviar el mensaje a " + id);
+            }
         }
 
 

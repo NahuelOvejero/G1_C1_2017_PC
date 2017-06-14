@@ -47,7 +47,7 @@ namespace SN
             comunicacion.TocaDibujar += Comunicacion_TocaDibujar;
             comunicacion.IniciarPartida += Comunicacion_IniciarPartida;
             comunicacion.FinTrazo += Comunicacion_finTrazo;
-
+            comunicacion.Contador += Comunicacion_Contador;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             lapiz.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
@@ -60,13 +60,18 @@ namespace SN
 
         }
 
+        private void Comunicacion_Contador(MensajeContador m)
+        {
+            lblContador.Invoke((Action)(()=> lblContador.Text=""+m.Pulso));
+        }
+
         int cont;
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
             //_PantallaActualizada.Set();
             // _EsperarHilo.WaitOne();
-
+            /*
             while (this.IsDisposed) { }
 
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = true));
@@ -80,9 +85,8 @@ namespace SN
                 Thread.Sleep(1000);
             }
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
-            pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));
-            cont = 60;
-            timer1.Start();
+            pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));*/
+
         }
         private void contar()
         {

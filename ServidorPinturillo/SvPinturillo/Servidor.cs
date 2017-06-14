@@ -16,7 +16,8 @@ namespace SvPinturillo
     public class Servidor
     {
 
-
+        CancellationTokenSource RecToken;
+        CancellationToken EndToken;
         int port = 8999;
         IPAddress localAddr = IPAddress.Parse("127.0.0.1");//127.0.0.1");
         TcpListener server;
@@ -201,7 +202,7 @@ namespace SvPinturillo
             }
             Console.ForegroundColor = ConsoleColor.Red;
 
-            Console.WriteLine("Se desconectó un usuario. Usuarios conectados:"+listaClientes.Count);
+            Console.WriteLine("Se desconectó el usuario"+id+". Usuarios conectados:"+listaClientes.Count);
         }
 
         private void C_Recibir(MensajeBase msg)
@@ -209,28 +210,32 @@ namespace SvPinturillo
             //si es para el servidor:
             if (msg.To == "")
             {
-               
+
                 switch (msg.TipoMensaje)
                 {
-                    case "MensajeEnviarPalabra" :
-                        MensajeEnviarPalabra mj = (MensajeEnviarPalabra) msg;
+                    case "MensajeEnviarPalabra":
+                        MensajeEnviarPalabra mj = (MensajeEnviarPalabra)msg;
                         Cliente c = filtrar(mj.From);
-                        
-                        if (corroborar(mj.Palabra)) {
-                           
-                            if (c != null) {
+
+                        if (corroborar(mj.Palabra))
+                        {
+
+                            if (c != null)
+                            {
                                 mj.To = mj.From;
                                 mj.From = "";
-                                mj.Correcta = true; 
+                                mj.Correcta = true;
                                 enviarTodos(mj, "");
+                                RecToken.Cancel();
                                 empezarPartida();
                             }
-                            
+
                         }
-                        else {
-                            
+                        else
+                        {
+
                             enviarTodos(mj, "");
-                           // filtrar(mj.From).enviar();
+                            // filtrar(mj.From).enviar();
                         }
                         break;
 
@@ -245,15 +250,15 @@ namespace SvPinturillo
                     case "MensajeEntrarSala":
 
                         Console.WriteLine("ENTRO A LA BENDITA SALA");
-                        if (listaClientes.Count > 1) 
-
+                        if (conectados==1)
                         {
+                            Thread.Sleep(3000);      
                             empezarPartida();
                         }
                         break;
 
                     case "MensajeFinTrazo":
-                        enviarTodos(msg, msg.From);                     
+                        enviarTodos(msg, msg.From);
                         break;
                 }
             }
@@ -270,10 +275,15 @@ namespace SvPinturillo
                     }
                 }
             }
+            //todos menos uno
+            else if (msg.To == "-") {
+                enviarTodos(msg, msg.From);
+            }
             // si no es para el servidor:
             else
             {
-                if (filtrar(msg.To) != null) { 
+                if (filtrar(msg.To) != null)
+                {
                     filtrar(msg.To).enviar(msg);
                 }
             }
@@ -346,7 +356,8 @@ namespace SvPinturillo
         {
 
             Console.WriteLine("Empezo la partida");
-
+            RecToken = new CancellationTokenSource();
+            EndToken = RecToken.Token;
             Random ran = new Random();
             int i = ran.Next(0, palabras.Length - 1);
             palabraDesignada = palabras[i];
@@ -357,6 +368,16 @@ namespace SvPinturillo
             //SE ENVIA A TODOS EL MENSAJE Iniciar Partida y toca dibujar
             enviarTodos(msjToca, "");
             enviarTodos(iniciar, "");
+            //THREAD CONTADOR 
+            Thread HiloContador=new Thread(() => {
+                int cont = 60;
+                while (!EndToken.IsCancellationRequested && cont!=0) {
+                    MensajeContador mensajeContador = new MensajeContador("", "*", 1, cont--);
+                    enviarTodos(mensajeContador, "");
+                    Thread.Sleep(1000);
+                }
+            });
+            HiloContador.Start();
             avanzarTurno();
             //SE ENVIA AL DEL TURNO ACTUAL EL MENSAJE TOCA DIBUJAR
         }
