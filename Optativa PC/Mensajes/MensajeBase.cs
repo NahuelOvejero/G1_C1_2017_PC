@@ -21,7 +21,7 @@ namespace Mensajes
             this.from = from;
             this.to = to;
             this.nroSala = sala;
-            this.fecha = DateTime.Today;
+            this.fecha = DateTime.Now;
            
            
         }

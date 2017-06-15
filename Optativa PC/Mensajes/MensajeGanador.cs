@@ -9,19 +9,15 @@ namespace Mensajes
     public class MensajeGanador : MensajeBase
     {
 
-
-        string idEmisor;
-        string idReceptor;
-        int nroSala;
-        DateTime fecha;
-        string JSONmensaje; 
-        
         //dentro del JSON deberia estar el nombre del usuario con mas puntos
-
-        public MensajeGanador(string emisor, string receptor, int sala, string J) : base(emisor, receptor, sala)
+        int puntos;
+        public MensajeGanador(string emisor, string receptor, int sala,int puntos) : base(emisor, receptor, sala)
         {
-
-
+            this.puntos = puntos;
+            base.TipoMensaje = this.GetType().Name;
+        }
+        public int Puntos {
+            get { return puntos; }
         }
 
     }

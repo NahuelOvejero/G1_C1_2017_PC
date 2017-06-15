@@ -31,6 +31,12 @@ namespace misClases
         public event DelMensajeFinTrazo FinTrazo;
         public delegate void DelMensajeContador(MensajeContador m);
         public event DelMensajeContador Contador;
+        public delegate void DelMensajeUsuariosEnSala(MensajeUsuariosEnSala m);
+        public event DelMensajeUsuariosEnSala UsuariosEnSala;
+        public delegate void DelMensajeGanador(MensajeGanador m);
+        public event DelMensajeGanador Ganador;
+        public delegate void DelMensajeEmpate(MensajeEmpate m);
+        public event DelMensajeEmpate Empate;
         #endregion
 
         public void contador()
@@ -140,7 +146,7 @@ namespace misClases
                     }
                     break;
                 case "MensajeContador":
-                    if(Contador !=null)
+                    if (Contador != null)
                     {
                         try
                         {
@@ -149,6 +155,44 @@ namespace misClases
                         }
                         catch (InvalidCastException e) {
                             Console.WriteLine("151" + e.Message);
+                        }
+                    }
+                    break;
+                case "MensajeUsuariosEnSala":
+                    if (UsuariosEnSala != null) {
+                        try {
+                            MensajeUsuariosEnSala msgUsSala = (MensajeUsuariosEnSala)msg;
+                            UsuariosEnSala(msgUsSala);
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            Console.WriteLine("164" + e.Message);
+                        }
+                    }
+                    break;
+                case "MensajeGanador":
+                    if (Ganador != null) {
+                        try
+                        {
+                            MensajeGanador msgGanador = (MensajeGanador)msg;
+                            Ganador(msgGanador);
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            Console.WriteLine("180" + e.Message);
+                        }
+                    }break;
+                case "MensajeEmpate":
+                    if(Empate!=null)
+                    {
+                        try
+                        {
+                            MensajeEmpate msgempate = (MensajeEmpate)msg;
+                            Empate(msgempate);
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            Console.WriteLine("195" + e.Message);
                         }
                     }
                     break;
@@ -190,6 +234,10 @@ namespace misClases
         {
             MensajeFinTrazo mf = new MensajeFinTrazo(emisor, "*" ,0);
             serializador.enviarMensaje(mf);
+        }
+        public void empezarNuevaPartida() {
+            MensajeIniciarPartida iniciarPartida = new MensajeIniciarPartida("", "", 0);
+            serializador.enviarMensaje(iniciarPartida);
         }
         
         #endregion

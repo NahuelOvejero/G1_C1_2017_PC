@@ -124,8 +124,7 @@
             // 
             // groupBox2
             // 
-
-           this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(258, 169);
@@ -156,9 +155,8 @@
             this.label4.Text = "Cantidad de personas: 0";
             // 
             // groupBox3
-
+            // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
-
             this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(478, 169);
@@ -222,9 +220,7 @@
             // 
             // groupBox5
             // 
-
             this.groupBox5.BackColor = System.Drawing.Color.Transparent;
-
             this.groupBox5.Controls.Add(this.pictureBox3);
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Location = new System.Drawing.Point(478, 318);
@@ -256,9 +252,7 @@
             // 
             // groupBox6
             // 
-
             this.groupBox6.BackColor = System.Drawing.Color.Transparent;
-
             this.groupBox6.Controls.Add(this.pictureBox4);
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Location = new System.Drawing.Point(258, 318);
@@ -290,9 +284,7 @@
             // 
             // pictureBox6
             // 
-
             this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
-
             this.pictureBox6.Image = global::SN.Properties.Resources.SALAX;
             this.pictureBox6.Location = new System.Drawing.Point(277, 134);
             this.pictureBox6.Name = "pictureBox6";
@@ -303,10 +295,8 @@
             // 
             // pbSeleccione
             // 
-
             this.pbSeleccione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.pbSeleccione.BackColor = System.Drawing.Color.Transparent;
-
             this.pbSeleccione.Image = global::SN.Properties.Resources.seleccione1;
             this.pbSeleccione.Location = new System.Drawing.Point(12, 47);
             this.pbSeleccione.Name = "pbSeleccione";
@@ -330,9 +320,7 @@
             // 
             // pictureBox7
             // 
-
             this.pictureBox7.BackColor = System.Drawing.Color.Transparent;
-
             this.pictureBox7.Image = global::SN.Properties.Resources.SALAX;
             this.pictureBox7.Location = new System.Drawing.Point(497, 134);
             this.pictureBox7.Name = "pictureBox7";
@@ -343,9 +331,7 @@
             // 
             // pictureBox8
             // 
-
             this.pictureBox8.BackColor = System.Drawing.Color.Transparent;
-
             this.pictureBox8.Image = global::SN.Properties.Resources.SALAX;
             this.pictureBox8.Location = new System.Drawing.Point(497, 283);
             this.pictureBox8.Name = "pictureBox8";
@@ -356,9 +342,7 @@
             // 
             // pictureBox9
             // 
-
             this.pictureBox9.BackColor = System.Drawing.Color.Transparent;
-
             this.pictureBox9.Image = global::SN.Properties.Resources.SALAX;
             this.pictureBox9.Location = new System.Drawing.Point(66, 283);
             this.pictureBox9.Name = "pictureBox9";
@@ -369,9 +353,7 @@
             // 
             // pictureBox10
             // 
-
             this.pictureBox10.BackColor = System.Drawing.Color.Transparent;
-
             this.pictureBox10.Image = global::SN.Properties.Resources.SALAX;
             this.pictureBox10.Location = new System.Drawing.Point(277, 283);
             this.pictureBox10.Name = "pictureBox10";
@@ -384,10 +366,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
             this.BackColor = System.Drawing.SystemColors.ControlText;
             this.BackgroundImage = global::SN.Properties.Resources.ff123;
-
             this.ClientSize = new System.Drawing.Size(680, 451);
             this.Controls.Add(this.pictureBox10);
             this.Controls.Add(this.pictureBox9);
@@ -407,6 +387,7 @@
             this.Name = "frmSalas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.Load += new System.EventHandler(this.frmSalas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEntrar)).EndInit();

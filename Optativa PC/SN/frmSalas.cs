@@ -72,5 +72,10 @@ namespace SN
         {
             pbEntrar.BackColor = Color.Transparent;
         }
+
+        private void frmSalas_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

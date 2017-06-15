@@ -18,11 +18,16 @@ namespace SvPinturillo
         public delegate void delDesc(string id);
         TcpClient cliente;
         string id;
+        int puntos;
         NetworkStream stream;
         StreamWriter writer;
         StreamReader reader;
         public string Id {
             get { return id; }
+        }
+        public int Puntos {
+            get { return puntos; }
+            set { puntos += value; }
         }
         #region eventos
         public delegate void delRecibir(MensajeBase mensaje);

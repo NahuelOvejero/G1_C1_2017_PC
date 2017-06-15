@@ -27,7 +27,7 @@ namespace misClases
             try
             {
 
-                client = new TcpClient("10.62.200.13", port);
+                client = new TcpClient("127.0.0.1", port);
                 stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream) { AutoFlush = true };
@@ -36,12 +36,16 @@ namespace misClases
         }
         public void read()
         {
-            while (true)
+            try
             {
-                string e = reader.ReadLine();
-               
-                serializador.recibirMensaje(e);
+                while (true)
+                {
+                    string e = reader.ReadLine();
+
+                    serializador.recibirMensaje(e);
+                }
             }
+            catch (NullReferenceException e) { throw e; }
         }
         public void enviar(string msg)
         {

@@ -333,9 +333,9 @@
             this.lbUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbUsuarios.FormattingEnabled = true;
             this.lbUsuarios.ItemHeight = 20;
-            this.lbUsuarios.Location = new System.Drawing.Point(34, 161);
+            this.lbUsuarios.Location = new System.Drawing.Point(3, 161);
             this.lbUsuarios.Name = "lbUsuarios";
-            this.lbUsuarios.Size = new System.Drawing.Size(143, 460);
+            this.lbUsuarios.Size = new System.Drawing.Size(218, 460);
             this.lbUsuarios.TabIndex = 22;
             // 
             // label4
@@ -351,7 +351,7 @@
             this.label4.Size = new System.Drawing.Size(85, 23);
             this.label4.TabIndex = 23;
             this.label4.Text = "Usuarios";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+           
             // 
             // tbPalabra
             // 

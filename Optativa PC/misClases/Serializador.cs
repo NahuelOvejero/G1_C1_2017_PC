@@ -43,6 +43,12 @@ namespace misClases
                     mb = JsonConvert.DeserializeObject<MensajeFinTrazo>(mensaje); break;
                 case "MensajeContador":
                     mb = JsonConvert.DeserializeObject<MensajeContador>(mensaje);break;
+                case "MensajeUsuariosEnSala":
+                    mb = JsonConvert.DeserializeObject<MensajeUsuariosEnSala>(mensaje);break;
+                case "MensajeGanador":
+                    mb = JsonConvert.DeserializeObject<MensajeGanador>(mensaje);break;
+                case "MensajeEmpate":
+                    mb = JsonConvert.DeserializeObject<MensajeEmpate>(mensaje); break;
             }
             if (Recibir != null)
                 Recibir(mb);

@@ -48,6 +48,9 @@ namespace SN
             comunicacion.IniciarPartida += Comunicacion_IniciarPartida;
             comunicacion.FinTrazo += Comunicacion_finTrazo;
             comunicacion.Contador += Comunicacion_Contador;
+            comunicacion.Ganador += Comunicacion_Ganador;
+            comunicacion.UsuariosEnSala += Comunicacion_UsuariosEnSala;
+            comunicacion.Empate += Comunicacion_Empate;
             lapiz = new Pen(Color.Black,(int) nudWidth.Value);
             lapiz.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
@@ -57,11 +60,48 @@ namespace SN
             lblNick.Text = usuario.User;
             lblPuntos.Text =Convert.ToString(usuario.Puntos);
             lbUsuarios.Items.Add(usuario.User + "     " + usuario.Puntos.ToString());
+            
+        }
 
+        private void Comunicacion_Empate(MensajeEmpate m)
+        {
+            lblMensaje.Invoke((Action)(() =>
+            {
+                lblMensaje.Text = "Nadie Adivinó. Empate";
+                lblMensaje.Visible = true;
+            }));
+        }
+
+        private void Comunicacion_Ganador(MensajeGanador m)
+        {
+            lblMensaje.Invoke((Action)(() =>
+            {
+                lblMensaje.Text = "El ganador es '"+m.To+"'. Con "+m.Puntos+" puntos.";
+                lblMensaje.Visible = true;
+            }));
+            Thread.Sleep(3000);
+            for (int i = 5; i > 0; i--) {
+                lblMensaje.Invoke((Action)(() =>lblMensaje.Text = "En "+i+" comenzará otra partida"));
+                Thread.Sleep(1000);
+            }
+            lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
+            if(m.To==usuario.User)
+                comunicacion.empezarNuevaPartida();
+        }
+
+        private void Comunicacion_UsuariosEnSala(MensajeUsuariosEnSala m)
+        {
+            lbUsuarios.Invoke((Action)(()=> {
+                lbUsuarios.Items.Clear();
+                foreach (string s in m.UsuariosEnSala) {
+                    lbUsuarios.Items.Add(s);
+                }
+                }));
         }
 
         private void Comunicacion_Contador(MensajeContador m)
         {
+            cont = m.Pulso;
             lblContador.Invoke((Action)(()=> lblContador.Text=""+m.Pulso));
         }
 
@@ -69,6 +109,7 @@ namespace SN
 
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
+            lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
             //_PantallaActualizada.Set();
             // _EsperarHilo.WaitOne();
             /*
@@ -86,10 +127,6 @@ namespace SN
             }
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
             pnlDibujo.Invoke((Action)(() => pnlDibujo.Visible = true));*/
-
-        }
-        private void contar()
-        {
 
         }
 
@@ -250,7 +287,7 @@ namespace SN
             //    lblContador.Text = cont.ToString();
             //}
 
-            
+            /*
             int a = 0;
 
             if (cont != 0)
@@ -278,18 +315,9 @@ namespace SN
                     lblAdivina.Text += p[p.Length - 1].ToString().ToUpper();
                 }
                 a++;
-            }
+            }*/
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-             
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void tbPalabra_KeyPress(object sender, KeyPressEventArgs e)
         {

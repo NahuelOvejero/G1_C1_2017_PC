@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="MensajeContador.cs" />
     <Compile Include="MensajeDibujarPuntos.cs" />
+    <Compile Include="MensajeEmpate.cs" />
     <Compile Include="MensajeEntrarSala.cs" />
     <Compile Include="MensajeEnviarPalabra.cs" />
     <Compile Include="MensajeFinTrazo.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="MensajeLogin.cs" />
     <Compile Include="MensajeBase.cs" />
     <Compile Include="MensajeTocaDibujar.cs" />
+    <Compile Include="MensajeUsuariosEnSala.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
