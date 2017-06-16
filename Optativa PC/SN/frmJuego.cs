@@ -110,6 +110,7 @@ namespace SN
         private void Comunicacion_IniciarPartida(MensajeIniciarPartida m)
         {
             lblMensaje.Invoke((Action)(() => lblMensaje.Visible = false));
+            pnlAdivina.Invoke((Action)(() => pnlAdivina.Invalidate()));
             //_PantallaActualizada.Set();
             // _EsperarHilo.WaitOne();
             /*
